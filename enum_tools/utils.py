@@ -60,7 +60,7 @@ def is_valid_domain(domain):
     return True
 
 
-def get_url_batch(url_list, use_ssl=False, callback='', threads=5, redir=True):
+def get_url_batch(url_list, use_ssl=False, callback='', threads=5, redir=True, verbose=False):
     """
     Processes a list of URLs, sending the results back to the calling
     function in real-time via the `callback` parameter
@@ -103,17 +103,34 @@ def get_url_batch(url_list, use_ssl=False, callback='', threads=5, redir=True):
         # Then, grab all the results from the queue.
         # This is where we need to catch exceptions that occur with large
         # fuzz lists and dodgy connections.
+        connection_errors = 0
         for url in batch_pending:
             try:
                 # Timeout is set due to observation of some large jobs simply
                 # hanging forever with no exception raised.
                 batch_results[url] = batch_pending[url].result(timeout=30)
-            except requests.exceptions.ConnectionError as error_msg:
-                print(f"    [!] Connection error on {url}:")
-                print(error_msg)
+                if verbose:
+                    print(f"    [*] {proto}{url} -> {batch_results[url].status_code}")
+            except requests.exceptions.ConnectionError:
+                # Count connection errors but don't print each one (too verbose)
+                # These are expected when scanning for non-existent resources
+                connection_errors += 1
+                if verbose:
+                    print(f"    [*] {proto}{url} -> Connection Error")
             except TimeoutError:
+                if verbose:
+                    print(f"    [*] {proto}{url} -> Timeout")
                 print(f"    [!] Timeout on {url}. Investigate if there are"
                       " many of these")
+        
+        # Only report connection errors if there are significant numbers
+        if connection_errors > 0 and connection_errors == len(batch):
+            # All connections in batch failed - might indicate network issues
+            if connection_errors > 20:
+                print(f"    [*] {connection_errors} connection errors in batch (likely non-existent resources)")
+        elif connection_errors > 10:
+            # Some connections failed but not all
+            print(f"    [*] {connection_errors} connection errors in batch")
 
         # Now, send all the results to the callback function for analysis
         # We need a way to stop processing unnecessary brute-forces, so the
@@ -180,21 +197,29 @@ def dns_lookup(nameserver, name):
         # If no exception is thrown, return the valid name
         return name
     except dns.resolver.NXDOMAIN:
+        # Domain doesn't exist - normal for enumeration
         return ''
     except dns.resolver.NoNameservers as exc_text:
-        print("    [!] Error querying nameservers! This could be a problem.")
-        print("    [!] If you're using a VPN, try setting --ns to your VPN's nameserver.")
-        print("    [!] Bailing because you need to fix this")
-        print("    [!] More Info:")
-        print(exc_text)
-        return '-#BREAKOUT_DNS_ERROR#-'
-    except dns.exception.Timeout:
-        print(f"    [!] DNS Timeout on {name}. Investigate if there are many"
-              " of these.")
+        # Check if this is a SERVFAIL (common with AWS services that don't exist)
+        if "SERVFAIL" in str(exc_text):
+            # SERVFAIL is normal for non-existent AWS resources, treat as NXDOMAIN
+            return ''
+        else:
+            # True nameserver error - report but don't exit
+            print("    [!] Warning: DNS nameserver issue detected")
+            print("    [!] If you're using a VPN, try setting --ns to your VPN's nameserver.")
+            print(f"    [!] Continuing with remaining checks. Error: {exc_text}")
+            return ''
+    except (dns.exception.Timeout, dns.resolver.NoAnswer):
+        # Timeout or no answer - not uncommon in cloud enumeration
+        return ''
+    except Exception as exc_text:
+        # Catch any other DNS exceptions without crashing
+        print(f"    [!] DNS lookup error for {name}: {exc_text}")
         return ''
 
 
-def fast_dns_lookup(names, nameserver, nameserverfile, callback='', threads=5):
+def fast_dns_lookup(names, nameserver, nameserverfile, callback='', threads=5, verbose=False):
     """
     Helper function to resolve DNS names. Uses multithreading.
     """
@@ -223,24 +248,30 @@ def fast_dns_lookup(names, nameserver, nameserverfile, callback='', threads=5):
         results = pool.map(dns_lookup_params, batch)
 
         # We should now have the batch of results back, process them.
-        for name in results:
-            if name:
-                if name == '-#BREAKOUT_DNS_ERROR#-':
-                    sys.exit()
+        for i, name in enumerate(batch):
+            result = results[i]
+            if verbose:
+                if result:
+                    print(f"    [*] {name} -> FOUND")
+                else:
+                    print(f"    [*] {name} -> NXDOMAIN")
+            if result:
                 if callback:
-                    callback(name)
-                valid_names.append(name)
+                    callback(result)
+                valid_names.append(result)
 
         current += threads
 
         # Update the status message
-        sys.stdout.flush()
-        sys.stdout.write(f"    {current}/{total} complete...")
-        sys.stdout.write('\r')
+        if not verbose:  # Only show progress bar if not verbose
+            sys.stdout.flush()
+            sys.stdout.write(f"    {current}/{total} complete...")
+            sys.stdout.write('\r')
         pool.close()
 
     # Clear the status message
-    sys.stdout.write('                            \r')
+    if not verbose:
+        sys.stdout.write('                            \r')
 
     return valid_names
 
@@ -278,12 +309,20 @@ def fmt_output(data):
     # (basically, how public it is))
     bold = '\033[1m'
     end = '\033[0m'
+    ansi = bold + '\033[37m'  # default white
+    
     if data['access'] == 'public':
         ansi = bold + '\033[92m'  # green
-    if data['access'] == 'protected':
+    elif data['access'] == 'protected':
         ansi = bold + '\033[33m'  # orange
-    if data['access'] == 'disabled':
+    elif data['access'] == 'disabled':
         ansi = bold + '\033[31m'  # red
+    elif data['access'] == 'investigate':
+        ansi = bold + '\033[94m'  # blue
+    elif data['access'] == 'unknown':
+        ansi = bold + '\033[95m'  # magenta
+    elif data['access'] == 'rate-limited':
+        ansi = bold + '\033[33m'  # orange (same as protected)
 
     sys.stdout.write('  ' + ansi + data['msg'] + ': ' + data['target'] + end + '\n')
 

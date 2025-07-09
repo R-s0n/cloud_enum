@@ -1,18 +1,53 @@
 # cloud_enum
 
-## Future of cloud_enum
+## Maintained Fork - Ars0n Framework v2
 
-I built this tool in 2019 for a pentest involving Azure, as no other enumeration tools supported it at the time. It grew from there, and I learned a lot while adding features.
+This fork is actively maintained by **rs0n** as part of [The Ars0n Framework v2](https://github.com/R-s0n/ars0n-framework-v2), a comprehensive bug bounty hunting framework. This version includes significant enhancements and expanded cloud service coverage.
 
-Building tools is fun, but maintaining tools is hard. I haven't actively used this tool myself in a while, but I've done my best to fix bugs and review pull requests.
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=kAO0stO-hBg">
+    <img src="thumbnail.png" width="600px" alt="Youtube Thumbnail" style="border-radius: 12px;">
+  </a>
+</div>
 
-Moving forward, it makes sense to consolidate this functionality into a well-maintained project that handles the essentials (web/dns requests, threading, I/O, logging, etc.). [Nuclei](https://github.com/projectdiscovery/nuclei) is really well suited for this. You can see my first PR to migrate cloud_enum functionality to Nuclei [here](https://github.com/projectdiscovery/nuclei-templates/pull/6865).
+### Major Updates & Enhancements
 
-I encourage others to contribute templates to Nuclei, allowing us to focus on detecting cloud resources while leaving the groundwork to Nuclei.
+**🚀 Massive Service Expansion:**
+- **AWS**: Expanded from 2 to 40+ services (1900% increase)
+- **Azure**: Expanded from 17 to 24+ services (41% increase) 
+- **GCP**: Expanded from 5 to 15+ services (200% increase)
 
-I'll still try to review PRs here to address bugs as time permits, but likely won't have time for major changes.
+**🌍 Global Region Coverage:**
+- **AWS**: Updated from 20 to 37+ regions with complete global coverage
+- **Azure**: Expanded from 31 to 62+ regions including new European, Asian, and South American regions
+- **GCP**: Updated from 19 to 45+ regions reflecting Google Cloud's infrastructure expansion
 
-Thanks to all the great contributors. Good luck with your recon!
+**⚡ Advanced Controls:**
+- **Service Selection**: Target specific services with `--aws-services`, `--azure-services`, `--gcp-services`
+- **Region Filtering**: Limit scans to specific regions with `--aws-regions`, `--azure-regions`, `--gcp-regions`
+- **Discovery Commands**: Use `--show-services` and `--show-regions` to explore available options (no longer require `-k` flag)
+- **Verbose Mode**: Comprehensive `-v` flag showing detailed enumeration process, FQDN formats, and testing methodology
+
+**🎯 Enhanced Mutation & Discovery:**
+- **Expanded Wordlist**: Upgraded `fuzz.txt` from 306 to 800+ cloud-focused terms (160% increase)
+- **Enhanced Mutations**: Added underscore support increasing variations from 6 to 8 per keyword (33% more coverage)
+- **Region-Aware Testing**: Proper region-specific enumeration for Cloud SQL, Spanner, RDS, Redshift
+
+**🔧 Improved Response Handling:**
+- Service-appropriate HTTP response interpretation across all cloud providers
+- Improved rate limiting detection and handling
+- Better authentication requirement detection with new access levels
+- More accurate public vs. protected resource classification
+- Fixed critical error handling for edge-case HTTP responses
+
+### Connect with rs0n
+
+- **GitHub**: [https://github.com/R-s0n](https://github.com/R-s0n)
+- **YouTube**: [https://www.youtube.com/@rs0n_live](https://www.youtube.com/@rs0n_live)
+- **Twitch**: [https://www.twitch.tv/rs0n_live](https://www.twitch.tv/rs0n_live)
+- **LinkedIn**: [https://www.linkedin.com/in/harrison-richardson-rs0n-7a55bb158/](https://www.linkedin.com/in/harrison-richardson-rs0n-7a55bb158/)
+
+*This enhanced version maintains full backward compatibility while providing powerful new capabilities for modern cloud reconnaissance.*
 
 ## Overview
 
@@ -20,23 +55,36 @@ Multi-cloud OSINT tool. Enumerate public resources in AWS, Azure, and Google Clo
 
 Currently enumerates the following:
 
-**Amazon Web Services**:
+**Amazon Web Services** (40+ services):
 - Open / Protected S3 Buckets
-- awsapps (WorkMail, WorkDocs, Connect, etc.)
+- AWS Apps (WorkMail, WorkDocs, Connect, etc.)
+- ELB, RDS, DynamoDB, CloudWatch
+- Lambda, SQS, SNS, IAM
+- Secrets Manager, CloudFormation, AppSync, EKS, EFS
+- WorkSpaces, Elastic Transcoder, WorkDocs, EMR
+- Elastic Beanstalk, Cognito, Cloud9, Lightsail
+- WorkMail, Redshift, CloudTrail, Data Pipeline
+- KMS, IoT Core, Systems Manager, X-Ray
+- Batch, Snowball, Inspector, Kinesis, Step Functions
+- SageMaker, Redshift Spectrum, QuickSight, and more
 
-**Microsoft Azure**:
-- Storage Accounts
+**Microsoft Azure** (24+ services):
+- Storage Accounts (Blob, File, Queue, Table)
 - Open Blob Storage Containers
-- Hosted Databases
-- Virtual Machines
-- Web Apps
+- Key Vault, App Management
+- Hosted Databases, Virtual Machines, Web Apps
+- Cognitive Services, Active Directory, Service Bus
+- API Management, AKS, Monitor, Logic Apps, Redis Cache
+- Container Registry, Virtual Networks, CDN, Event Grid
+- Data Lake Storage, Cognitive Search, IoT Hub
 
-**Google Cloud Platform**
+**Google Cloud Platform** (15+ services):
 - Open / Protected GCP Buckets
-- Open / Protected Firebase Realtime Databases
-- Google App Engine sites
-- Cloud Functions (enumerates project/regions with existing functions, then brute forces actual function names)
-- Open Firebase Apps
+- Firebase (Realtime Database, Applications)
+- Google App Engine sites, Cloud Functions
+- Pub/Sub, BigQuery, Spanner, Cloud SQL
+- Vision API, Identity Platform, Firestore
+- Datastore, Text-to-Speech, AI Platform
 
 See it in action in [Codingo](https://github.com/codingo)'s video demo [here](https://www.youtube.com/embed/pTUDJhWJ1m0).
 
@@ -71,11 +119,74 @@ HTTP scraping and DNS lookups use 5 threads each by default. You can try increas
 ./cloud_enum.py -k keyword -t 10
 ```
 
-**IMPORTANT**: Some resources (Azure Containers, GCP Functions) are discovered per-region. To save time scanning, there is a "REGIONS" variable defined in `cloudenum/azure_regions.py and cloudenum/gcp_regions.py` that is set by default to use only 1 region. You may want to look at these files and edit them to be relevant to your own work.
+For detailed output showing enumeration methodology and FQDN formats, use the verbose flag:
+
+```sh
+./cloud_enum.py -k keyword -v
+```
+
+### Advanced Usage
+
+**Service Selection**: You can target specific cloud services instead of running all checks:
+
+```sh
+# AWS specific services
+./cloud_enum.py -k keyword --aws-services s3,lambda,elb
+
+# Azure specific services  
+./cloud_enum.py -k keyword --azure-services storage-accounts,websites,databases,container-registry,iot-hub
+
+# GCP specific services
+./cloud_enum.py -k keyword --gcp-services gcp-buckets,app-engine,cloud-functions
+
+# Mixed cloud targeting
+./cloud_enum.py -k keyword --aws-services s3,cloudfront --azure-services storage-accounts,container-registry --gcp-services gcp-buckets
+```
+
+**Region Filtering**: You can limit scans to specific regions for faster, targeted enumeration:
+
+```sh
+# AWS regions
+./cloud_enum.py -k keyword --aws-regions us-east-1,us-west-2,eu-west-1
+
+# Azure regions
+./cloud_enum.py -k keyword --azure-regions eastus,westus2,northeurope
+
+# GCP regions (especially useful for Cloud Functions)
+./cloud_enum.py -k keyword --gcp-regions us-central1,europe-west1,asia-east1
+
+# Combined region and service filtering
+./cloud_enum.py -k keyword --aws-services rds --aws-regions us-east-1,us-west-2
+./cloud_enum.py -k keyword --gcp-services cloud-functions --gcp-regions us-central1,us-east1
+```
+
+**Discovery Commands**: Use these to see what services and regions are available:
+
+```sh
+# Show all available services (now includes 24+ Azure services)
+./cloud_enum.py --show-services
+
+# Show all available regions
+./cloud_enum.py --show-regions
+```
+
+**Important Notes**: 
+- Some resources (RDS, Redshift, Azure Containers, GCP Functions, Cloud SQL, Spanner) are discovered per-region. 
+- RDS and Redshift use region-specific FQDNs: `instance.region.rds.amazonaws.com`
+- GCP region-specific services use: `resource.region.googleapis.com` (Cloud SQL, Spanner)
+- Cloud Functions use: `region-projectname.cloudfunctions.net`
+- BigQuery and Pub/Sub are region-aware but don't include region in URL format
+- The tool will validate your region/service selections and warn about invalid entries.
+- Region filtering is most beneficial for RDS, Redshift, GCP Cloud Functions/SQL/Spanner, and Azure Virtual Machines.
+- Use `--quickscan` to disable mutations and second-level scanning for faster results.
 
 **Complete Usage Details**
 ```
-usage: cloud_enum.py [-h] -k KEYWORD [-m MUTATIONS] [-b BRUTE]
+usage: cloud_enum.py [-h] -k KEYWORD [-m MUTATIONS] [-b BRUTE] [-t THREADS] [-ns NAMESERVER] 
+                     [-nsf NAMESERVERFILE] [-l LOGFILE] [-f FORMAT] [--disable-aws] [--disable-azure] 
+                     [--disable-gcp] [-qs] [-v] [--aws-regions AWS_REGIONS] [--azure-regions AZURE_REGIONS] 
+                     [--gcp-regions GCP_REGIONS] [--aws-services AWS_SERVICES] [--azure-services AZURE_SERVICES] 
+                     [--gcp-services GCP_SERVICES] [--show-regions] [--show-services]
 
 Multi-cloud enumeration utility. All hail OSINT!
 
@@ -93,6 +204,8 @@ optional arguments:
                         Threads for HTTP brute-force. Default = 5
   -ns NAMESERVER, --nameserver NAMESERVER
                         DNS server to use in brute-force.
+  -nsf NAMESERVERFILE, --nameserverfile NAMESERVERFILE
+                        Path to the file containing nameserver IPs
   -l LOGFILE, --logfile LOGFILE
                         Will APPEND found items to specified file.
   -f FORMAT, --format FORMAT
@@ -101,6 +214,21 @@ optional arguments:
   --disable-azure       Disable Azure checks.
   --disable-gcp         Disable Google checks.
   -qs, --quickscan      Disable all mutations and second-level scans
+  -v, --verbose         Show detailed enumeration process including FQDN formats and HTTP response meanings
+  --aws-regions AWS_REGIONS
+                        Comma-separated list of AWS regions to check
+  --azure-regions AZURE_REGIONS
+                        Comma-separated list of Azure regions to check
+  --gcp-regions GCP_REGIONS
+                        Comma-separated list of GCP regions to check
+  --aws-services AWS_SERVICES
+                        Comma-separated list of AWS services to check
+  --azure-services AZURE_SERVICES
+                        Comma-separated list of Azure services to check
+  --gcp-services GCP_SERVICES
+                        Comma-separated list of GCP services to check
+  --show-regions        Display available regions for all cloud providers
+  --show-services       Display available services for all cloud providers
 ```
 
 ## Thanks

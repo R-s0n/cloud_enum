@@ -18,22 +18,36 @@ Currently enumerates the following:
 .PP
 .nf
 .fam C
-    Amazon Web Services:
+    Amazon Web Services (40+ services):
      Open / Protected S3 Buckets
-     awsapps (WorkMail, WorkDocs, Connect, etc.)
+     AWS Apps (WorkMail, WorkDocs, Connect, etc.)
+     ELB, RDS, DynamoDB, CloudWatch
+     Lambda, SQS, SNS, IAM
+     Secrets Manager, CloudFormation, AppSync, EKS, EFS
+     WorkSpaces, Elastic Transcoder, WorkDocs, EMR
+     Elastic Beanstalk, Cognito, Cloud9, Lightsail
+     WorkMail, Redshift, CloudTrail, Data Pipeline
+     KMS, IoT Core, Systems Manager, X-Ray
+     Batch, Snowball, Inspector, Kinesis, Step Functions
+     SageMaker, Redshift Spectrum, QuickSight, and more
 
-    Microsoft Azure:
-     Storage Accounts
+    Microsoft Azure (24+ services):
+     Storage Accounts (Blob, File, Queue, Table)
      Open Blob Storage Containers
-     Hosted Databases
-     Virtual Machines
-     Web Apps
+     Key Vault, App Management
+     Hosted Databases, Virtual Machines, Web Apps
+     Cognitive Services, Active Directory, Service Bus
+     API Management, AKS, Monitor, Logic Apps, Redis Cache
+     Container Registry, Virtual Networks, CDN, Event Grid
+     Data Lake Storage, Cognitive Search, IoT Hub
 
-    Google Cloud Platform
+    Google Cloud Platform (15+ services):
      Open / Protected GCP Buckets
-     Open / Protected Firebase Realtime Databases
-     Google App Engine sites
-     Cloud Functions (enumerates project/regions with existing functions, then brute forces actual function names)
+     Firebase (Realtime Database, Applications)
+     Google App Engine sites, Cloud Functions
+     Pub/Sub, BigQuery, Spanner, Cloud SQL
+     Vision API, Identity Platform, Firestore
+     Datastore, Text-to-Speech, AI Platform
 
 .fam T
 .fi
@@ -68,6 +82,10 @@ Threads for HTTP brute-force. Default = 5.
 DNS server to use in brute-force.
 .TP
 .B
+\fB-nsf\fP NAMESERVERFILE, \fB--nameserverfile\fP NAMESERVERFILE
+Path to file containing nameserver IPs.
+.TP
+.B
 \fB-l\fP LOGFILE, \fB--logfile\fP LOGFILE
 Will APPEND found items to specified file.
 .TP
@@ -90,12 +108,64 @@ Disable Google checks.
 .B
 \fB-qs\fP, \fB--quickscan\fP
 Disable all mutations and second-level scan.
+.TP
+.B
+\fB-v\fP, \fB--verbose\fP
+Show detailed enumeration process including FQDN formats and HTTP response meanings.
+.TP
+.B
+\fB--aws-regions\fP AWS_REGIONS
+Comma-separated list of AWS regions to check.
+.TP
+.B
+\fB--azure-regions\fP AZURE_REGIONS
+Comma-separated list of Azure regions to check.
+.TP
+.B
+\fB--gcp-regions\fP GCP_REGIONS
+Comma-separated list of GCP regions to check.
+.TP
+.B
+\fB--aws-services\fP AWS_SERVICES
+Comma-separated list of AWS services to check.
+.TP
+.B
+\fB--azure-services\fP AZURE_SERVICES
+Comma-separated list of Azure services to check.
+.TP
+.B
+\fB--gcp-services\fP GCP_SERVICES
+Comma-separated list of GCP services to check.
+.TP
+.B
+\fB--show-regions\fP
+Display available regions for all cloud providers.
+.TP
+.B
+\fB--show-services\fP
+Display available services for all cloud providers.
 .SH EXAMPLES
 cloud_enum \fB-k\fP keyword
 .PP
 cloud_enum \fB-k\fP keyword \fB-t\fP 10
 .PP
+cloud_enum \fB-k\fP keyword \fB-v\fP
+.PP
 cloud_enum \fB-k\fP somecompany \fB-k\fP somecompany.io \fB-k\fP blockchaindoohickey
+.PP
+cloud_enum \fB--show-services\fP
+.PP
+cloud_enum \fB--show-regions\fP
+.PP
+cloud_enum \fB-k\fP keyword \fB--aws-services\fP s3,lambda,api-gateway
+.PP
+cloud_enum \fB-k\fP keyword \fB--azure-services\fP storage-accounts,websites,databases
+.PP
+cloud_enum \fB-k\fP keyword \fB--gcp-services\fP gcp-buckets,app-engine,cloud-functions
+.PP
+cloud_enum \fB-k\fP keyword \fB--aws-regions\fP us-east-1,us-west-2,eu-west-1
+.PP
+cloud_enum \fB-k\fP keyword \fB--gcp-services\fP cloud-functions \fB--gcp-regions\fP us-central1,us-east1
 .SH AUTHOR
 Written by initstring <initstring@protonmail.com>
 .PP

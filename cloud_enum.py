@@ -26,6 +26,44 @@ BANNER = '''
 
 '''
 
+# Define available services for each cloud provider
+AWS_SERVICES = [
+    's3', 'awsapps', 'elb', 'rds', 'dynamodb', 'cloudwatch',
+    'lambda', 'sqs', 'sns', 'iam', 'secrets-manager', 
+    'cloudformation', 'appsync', 'eks', 'efs', 'workspaces', 
+    'elastic-transcoder', 'workdocs', 'emr', 'elastic-beanstalk', 
+    'cognito', 'cloud9', 'lightsail', 'workmail', 'redshift', 
+    'cloudtrail', 'data-pipeline', 'kms', 'iot-core', 'elastic-inference',
+    'ssm', 'xray', 'batch', 'snowball', 'inspector', 'kinesis',
+    'step-functions', 'sagemaker', 'redshift-spectrum', 'quicksight'
+]
+
+AZURE_SERVICES = [
+    'storage-accounts', 'file-accounts', 'queue-accounts', 'table-accounts',
+    'app-management', 'key-vault', 'websites', 'databases', 'virtual-machines',
+    'cognitive-services', 'active-directory', 'service-bus', 'api-management',
+    'aks', 'monitor', 'logic-apps', 'redis-cache', 'container-registry',
+    'virtual-networks', 'cdn', 'event-grid', 'data-lake', 'cognitive-search',
+    'iot-hub'
+]
+
+GCP_SERVICES = [
+    'gcp-buckets', 'firebase-rtdb', 'firebase-apps', 'app-engine', 
+    'cloud-functions', 'pubsub', 'bigquery', 'spanner', 'cloud-sql',
+    'vision-api', 'identity-platform', 'firestore', 'datastore',
+    'text-to-speech', 'ai-platform'
+]
+
+# Define available regions (imported from region files)
+from enum_tools.aws_checks import AWS_REGIONS
+from enum_tools.azure_regions import REGIONS as AZURE_REGIONS
+from enum_tools.gcp_regions import REGIONS as GCP_REGIONS
+
+# Clean up region lists for user display
+AWS_REGION_NAMES = [region.replace('.amazonaws.com', '').replace('.amazonaws.com.cn', '') for region in AWS_REGIONS if region != 'amazonaws.com']
+AZURE_REGION_NAMES = AZURE_REGIONS
+GCP_REGION_NAMES = GCP_REGIONS
+
 
 def parse_arguments():
     """
@@ -37,7 +75,7 @@ def parse_arguments():
     # Grab the current dir of the script, for setting some defaults below
     script_path = os.path.split(os.path.abspath(sys.argv[0]))[0]
 
-    kw_group = parser.add_mutually_exclusive_group(required=True)
+    kw_group = parser.add_mutually_exclusive_group(required=False)
 
     # Keyword can given multiple times
     kw_group.add_argument('-k', '--keyword', type=str, action='append',
@@ -86,7 +124,63 @@ def parse_arguments():
     parser.add_argument('-qs', '--quickscan', action='store_true',
                         help='Disable all mutations and second-level scans')
 
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='Enable verbose output showing detailed enumeration process')
+
+    # Region control arguments
+    parser.add_argument('--aws-regions', type=str, action='store',
+                        help='Comma-separated list of AWS regions to check')
+    parser.add_argument('--azure-regions', type=str, action='store',
+                        help='Comma-separated list of Azure regions to check')
+    parser.add_argument('--gcp-regions', type=str, action='store',
+                        help='Comma-separated list of GCP regions to check')
+
+    # Service control arguments
+    parser.add_argument('--aws-services', type=str, action='store',
+                        help='Comma-separated list of AWS services to check')
+    parser.add_argument('--azure-services', type=str, action='store',
+                        help='Comma-separated list of Azure services to check')
+    parser.add_argument('--gcp-services', type=str, action='store',
+                        help='Comma-separated list of GCP services to check')
+
+    # Information display arguments
+    parser.add_argument('--show-regions', action='store_true',
+                        help='Display available regions for all cloud providers')
+    parser.add_argument('--show-services', action='store_true',
+                        help='Display available services for all cloud providers')
+
     args = parser.parse_args()
+
+    # Handle information display requests
+    if args.show_regions:
+        show_available_regions()
+        sys.exit()
+    
+    if args.show_services:
+        show_available_services()
+        sys.exit()
+
+    # Check that keywords are provided when not using info display flags
+    if not args.keyword and not args.keyfile:
+        print("[!] Error: Must provide keywords with -k or --keyfile (unless using --show-regions or --show-services)")
+        parser.print_help()
+        sys.exit(1)
+
+    # Validate and process region selections
+    if args.aws_regions:
+        args.aws_regions = validate_regions(args.aws_regions, AWS_REGION_NAMES, 'AWS')
+    if args.azure_regions:
+        args.azure_regions = validate_regions(args.azure_regions, AZURE_REGION_NAMES, 'Azure')
+    if args.gcp_regions:
+        args.gcp_regions = validate_regions(args.gcp_regions, GCP_REGION_NAMES, 'GCP')
+
+    # Validate and process service selections
+    if args.aws_services:
+        args.aws_services = validate_services(args.aws_services, AWS_SERVICES, 'AWS')
+    if args.azure_services:
+        args.azure_services = validate_services(args.azure_services, AZURE_SERVICES, 'Azure')
+    if args.gcp_services:
+        args.gcp_services = validate_services(args.gcp_services, GCP_SERVICES, 'GCP')
 
     # Ensure mutations file is readable
     if not os.access(args.mutations, os.R_OK):
@@ -134,6 +228,106 @@ def parse_arguments():
     return args
 
 
+def validate_regions(user_regions, valid_regions, cloud_name):
+    """
+    Validates user-provided regions against available regions
+    """
+    user_list = [region.strip() for region in user_regions.split(',')]
+    validated_regions = []
+    invalid_regions = []
+
+    for region in user_list:
+        if region in valid_regions:
+            validated_regions.append(region)
+        else:
+            invalid_regions.append(region)
+
+    if invalid_regions:
+        print(f"[!] Invalid {cloud_name} regions removed: {', '.join(invalid_regions)}")
+        print(f"[*] Use --show-regions to see available {cloud_name} regions")
+
+    if not validated_regions:
+        print(f"[!] No valid {cloud_name} regions provided, using all regions")
+        return None
+
+    print(f"[+] Using {cloud_name} regions: {', '.join(validated_regions)}")
+    return validated_regions
+
+
+def validate_services(user_services, valid_services, cloud_name):
+    """
+    Validates user-provided services against available services
+    """
+    user_list = [service.strip().lower() for service in user_services.split(',')]
+    validated_services = []
+    invalid_services = []
+
+    for service in user_list:
+        if service in valid_services:
+            validated_services.append(service)
+        else:
+            invalid_services.append(service)
+
+    if invalid_services:
+        print(f"[!] Invalid {cloud_name} services removed: {', '.join(invalid_services)}")
+        print(f"[*] Use --show-services to see available {cloud_name} services")
+
+    if not validated_services:
+        print(f"[!] No valid {cloud_name} services provided, using all services")
+        return None
+
+    print(f"[+] Using {cloud_name} services: {', '.join(validated_services)}")
+    return validated_services
+
+
+def show_available_regions():
+    """
+    Display available regions for all cloud providers
+    """
+    print("\n=== AVAILABLE REGIONS ===\n")
+    
+    print("AWS Regions:")
+    for i, region in enumerate(AWS_REGION_NAMES, 1):
+        print(f"  {i:2d}. {region}")
+    
+    print(f"\nAzure Regions:")
+    for i, region in enumerate(AZURE_REGION_NAMES, 1):
+        print(f"  {i:2d}. {region}")
+    
+    print(f"\nGCP Regions:")
+    for i, region in enumerate(GCP_REGION_NAMES, 1):
+        print(f"  {i:2d}. {region}")
+    
+    print("\nExample usage:")
+    print("  --aws-regions us-east-1,us-west-2,eu-west-1")
+    print("  --azure-regions eastus,westus2,northeurope")
+    print("  --gcp-regions us-central1,europe-west1,asia-east1")
+
+
+def show_available_services():
+    """
+    Display available services for all cloud providers
+    """
+    print("\n=== AVAILABLE SERVICES ===\n")
+    
+    print("AWS Services:")
+    for i, service in enumerate(AWS_SERVICES, 1):
+        print(f"  {i:2d}. {service}")
+    
+    print(f"\nAzure Services:")
+    for i, service in enumerate(AZURE_SERVICES, 1):
+        print(f"  {i:2d}. {service}")
+    
+    print(f"\nGCP Services:")
+    for i, service in enumerate(GCP_SERVICES, 1):
+        print(f"  {i:2d}. {service}")
+    
+    print("\nExample usage:")
+    print("  --aws-services s3,lambda,elb")
+    print("  --azure-services storage-accounts,websites,databases")
+    print("  --gcp-services gcp-buckets,app-engine,cloud-functions")
+
+
 def print_status(args):
     """
     Print a short pre-run status message
@@ -144,6 +338,22 @@ def print_status(args):
     else:
         print(f"Mutations:   {args.mutations}")
     print(f"Brute-list:  {args.brute}")
+    
+    # Show region/service selections
+    if args.aws_regions:
+        print(f"AWS Regions: {', '.join(args.aws_regions)}")
+    if args.azure_regions:
+        print(f"Azure Regions: {', '.join(args.azure_regions)}")
+    if args.gcp_regions:
+        print(f"GCP Regions: {', '.join(args.gcp_regions)}")
+    
+    if args.aws_services:
+        print(f"AWS Services: {', '.join(args.aws_services)}")
+    if args.azure_services:
+        print(f"Azure Services: {', '.join(args.azure_services)}")
+    if args.gcp_services:
+        print(f"GCP Services: {', '.join(args.gcp_services)}")
+    
     print("")
 
 
@@ -212,11 +422,13 @@ def build_names(base_list, mutations):
             append_name(f"{base}{mutation}", names)
             append_name(f"{base}.{mutation}", names)
             append_name(f"{base}-{mutation}", names)
+            append_name(f"{base}_{mutation}", names)
 
             # Then, do prepends
             append_name(f"{mutation}{base}", names)
             append_name(f"{mutation}.{base}", names)
             append_name(f"{mutation}-{base}", names)
+            append_name(f"{mutation}_{base}", names)
 
     print(f"[+] Mutated results: {len(names)} items")
 

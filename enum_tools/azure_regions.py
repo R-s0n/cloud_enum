@@ -12,15 +12,58 @@ File used to track the DNS regions for Azure resources.
 
 # Here is the list I get when running `az account list-locations` in Azure
 # Powershell:
-REGIONS = ['eastasia', 'southeastasia', 'centralus', 'eastus', 'eastus2',
-           'westus', 'northcentralus', 'southcentralus', 'northeurope',
-           'westeurope', 'japanwest', 'japaneast', 'brazilsouth',
-           'australiaeast', 'australiasoutheast', 'southindia', 'centralindia',
-           'westindia', 'canadacentral', 'canadaeast', 'uksouth', 'ukwest',
-           'westcentralus', 'westus2', 'koreacentral', 'koreasouth',
-           'francecentral', 'francesouth', 'australiacentral',
-           'australiacentral2', 'southafricanorth', 'southafricawest']
+REGIONS = [
+    # North America
+    'eastus', 'eastus2', 'eastus3', 'centralus', 'northcentralus', 'southcentralus', 
+    'westus', 'westus2', 'westus3', 'westcentralus',
+    'canadacentral', 'canadaeast',
+    'mexicocentral',
+    
+    # South America
+    'brazilsouth', 'brazilsoutheast',
+    'chilecentral',
+    
+    # Europe
+    'northeurope', 'westeurope',
+    'francecentral', 'francesouth',
+    'germanywestcentral', 'germanynorth',
+    'norwayeast', 'norwaywest',
+    'switzerlandnorth', 'switzerlandwest',
+    'uksouth', 'ukwest',
+    'swedencentral', 'swedensouth',
+    'polandcentral',
+    'spaincentral',
+    'italynorth',
+    'austriaeast',
+    'belgiumcentral',
+    'denmarkeast',
+    'finlandcentral',
+    'greececentral',
+    
+    # Asia Pacific
+    'eastasia', 'southeastasia',
+    'australiaeast', 'australiasoutheast', 'australiacentral', 'australiacentral2',
+    'japaneast', 'japanwest',
+    'koreacentral', 'koreasouth',
+    'centralindia', 'southindia', 'westindia',
+    'indonesiacentral',
+    'malaysiawest',
+    'newzealandnorth',
+    
+    # Middle East
+    'uaenorth', 'uaecentral',
+    'qatarcentral',
+    'israelcentral',
+    
+    # Africa
+    'southafricanorth', 'southafricawest',
+    
+    # China (Special Administrative Regions)
+    'chinaeast', 'chinaeast2', 'chinanorth', 'chinanorth2', 'chinanorth3',
+    
+    # Additional regions for government/sovereign clouds
+    'usgovvirginia', 'usgovarizona', 'usgovtexas', 'usdodcentral', 'usdodeast',
+    'germanycentral', 'germanynortheast'
+]
 
 
-# And here I am limiting the search by overwriting this variable:
-REGIONS = ['eastus', ]

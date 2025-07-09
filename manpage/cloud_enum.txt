@@ -8,22 +8,36 @@ DESCRIPTION
   Multi-cloud OSINT tool. Enumerate public resources in AWS, Azure, and Google Cloud.
   Currently enumerates the following:
 
-    Amazon Web Services:
+    Amazon Web Services (40+ services):
      Open / Protected S3 Buckets
-     awsapps (WorkMail, WorkDocs, Connect, etc.)
+     AWS Apps (WorkMail, WorkDocs, Connect, etc.)
+     ELB, RDS, DynamoDB, CloudWatch
+     Lambda, SQS, SNS, IAM
+     Secrets Manager, CloudFormation, AppSync, EKS, EFS
+     WorkSpaces, Elastic Transcoder, WorkDocs, EMR
+     Elastic Beanstalk, Cognito, Cloud9, Lightsail
+     WorkMail, Redshift, CloudTrail, Data Pipeline
+     KMS, IoT Core, Systems Manager, X-Ray
+     Batch, Snowball, Inspector, Kinesis, Step Functions
+     SageMaker, Redshift Spectrum, QuickSight, and more
 
-    Microsoft Azure:
-     Storage Accounts
+    Microsoft Azure (24+ services):
+     Storage Accounts (Blob, File, Queue, Table)
      Open Blob Storage Containers
-     Hosted Databases
-     Virtual Machines
-     Web Apps
+     Key Vault, App Management
+     Hosted Databases, Virtual Machines, Web Apps
+     Cognitive Services, Active Directory, Service Bus
+     API Management, AKS, Monitor, Logic Apps, Redis Cache
+     Container Registry, Virtual Networks, CDN, Event Grid
+     Data Lake Storage, Cognitive Search, IoT Hub
 
-    Google Cloud Platform
+    Google Cloud Platform (15+ services):
      Open / Protected GCP Buckets
-     Open / Protected Firebase Realtime Databases
-     Google App Engine sites
-     Cloud Functions (enumerates project/regions with existing functions, then brute forces actual function names)
+     Firebase (Realtime Database, Applications)
+     Google App Engine sites, Cloud Functions
+     Pub/Sub, BigQuery, Spanner, Cloud SQL
+     Vision API, Identity Platform, Firestore
+     Datastore, Text-to-Speech, AI Platform
 
 OPTIONS
   -h, --help                                Show this help message and exit.
@@ -33,19 +47,45 @@ OPTIONS
   -b BRUTE, --brute BRUTE                   List to brute-force Azure container names. Default: /usr/lib/cloud-enum/enum_tools/fuzz.txt.
   -t THREADS, --threads THREADS             Threads for HTTP brute-force. Default = 5.
   -ns NAMESERVER, --nameserver NAMESERVER   DNS server to use in brute-force.
+  -nsf NAMESERVERFILE, --nameserverfile NAMESERVERFILE   Path to file containing nameserver IPs.
   -l LOGFILE, --logfile LOGFILE             Will APPEND found items to specified file.
   -f FORMAT, --format Format                Format for log file (text,json,csv - defaults to text)
   --disable-aws                             Disable Amazon checks.
   --disable-azure                           Disable Azure checks.
   --disable-gcp                             Disable Google checks.
   -qs, --quickscan                          Disable all mutations and second-level scan.
+  -v, --verbose                             Show detailed enumeration process including FQDN formats and HTTP response meanings.
+  --aws-regions AWS_REGIONS                 Comma-separated list of AWS regions to check.
+  --azure-regions AZURE_REGIONS             Comma-separated list of Azure regions to check.
+  --gcp-regions GCP_REGIONS                 Comma-separated list of GCP regions to check.
+  --aws-services AWS_SERVICES               Comma-separated list of AWS services to check.
+  --azure-services AZURE_SERVICES           Comma-separated list of Azure services to check.
+  --gcp-services GCP_SERVICES               Comma-separated list of GCP services to check.
+  --show-regions                            Display available regions for all cloud providers.
+  --show-services                           Display available services for all cloud providers.
 
 EXAMPLES
   cloud_enum -k keyword
 
   cloud_enum -k keyword -t 10
 
+  cloud_enum -k keyword -v
+
   cloud_enum -k somecompany -k somecompany.io -k blockchaindoohickey
+
+  cloud_enum --show-services
+
+  cloud_enum --show-regions
+
+  cloud_enum -k keyword --aws-services s3,lambda,api-gateway
+
+  cloud_enum -k keyword --azure-services storage-accounts,websites,databases
+
+  cloud_enum -k keyword --gcp-services gcp-buckets,app-engine,cloud-functions
+
+  cloud_enum -k keyword --aws-regions us-east-1,us-west-2,eu-west-1
+
+  cloud_enum -k keyword --gcp-services cloud-functions --gcp-regions us-central1,us-east1
 
 AUTHOR
   Written by initstring <initstring@protonmail.com>
