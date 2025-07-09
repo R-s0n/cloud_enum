@@ -607,9 +607,7 @@ elastic-search
 elasticache
 elasticbeanstalk-app
 elasticbeanstalk-env
-elb-classic
-elb-network
-elb-application
+
 elasticsearch-logs
 elasticsearch-metrics
 emr-cluster

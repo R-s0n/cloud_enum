@@ -28,7 +28,7 @@ BANNER = '''
 
 # Define available services for each cloud provider
 AWS_SERVICES = [
-    's3', 'awsapps', 'elb', 'rds', 'dynamodb', 'cloudwatch',
+    's3', 'awsapps', 'rds', 'dynamodb', 'cloudwatch',
     'lambda', 'sqs', 'sns', 'iam', 'secrets-manager', 
     'cloudformation', 'appsync', 'eks', 'efs', 'workspaces', 
     'elastic-transcoder', 'workdocs', 'emr', 'elastic-beanstalk', 
@@ -323,7 +323,7 @@ def show_available_services():
         print(f"  {i:2d}. {service}")
     
     print("\nExample usage:")
-    print("  --aws-services s3,lambda,elb")
+    print("  --aws-services s3,lambda,rds")
     print("  --azure-services storage-accounts,websites,databases")
     print("  --gcp-services gcp-buckets,app-engine,cloud-functions")
 

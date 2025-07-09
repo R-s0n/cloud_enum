@@ -16,7 +16,6 @@ S3_URL = 's3.amazonaws.com'
 APPS_URL = 'awsapps.com'
 
 # AWS Service Domain Patterns
-ELB_URL = 'elb.amazonaws.com'
 RDS_URL = 'rds.amazonaws.com'
 DYNAMODB_URL = 'dynamodb.amazonaws.com'
 CLOUDWATCH_URL = 'cloudwatch.amazonaws.com'
@@ -250,55 +249,7 @@ def check_awsapps(names, threads, nameserver, nameserverfile=False, verbose=Fals
 
 
 
-def print_elb_response(reply):
-    """
-    Parses the HTTP reply for ELB enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
 
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 503:
-        data['msg'] = 'ELB Found (Service Unavailable)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN ELB'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_elb(names, threads, verbose=False):
-    """
-    Checks for Elastic Load Balancer endpoints
-    """
-    print("[+] Checking for ELB endpoints")
-    
-    if verbose:
-        print(f"[*] ELB uses format: elbname.{ELB_URL}")
-        print(f"[*] Real example: my-app-prod.{ELB_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open ELB, 503 = Service unavailable, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{ELB_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_elb_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
 
 
 
@@ -1946,7 +1897,6 @@ def check_quicksight(names, threads, verbose=False):
 SERVICE_FUNCTIONS = {
     's3': 'check_s3_buckets',
     'awsapps': 'check_awsapps',
-    'elb': 'check_elb',
     'rds': 'check_rds',
     'dynamodb': 'check_dynamodb',
     'cloudwatch': 'check_cloudwatch',

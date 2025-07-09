@@ -13,7 +13,7 @@ This fork is actively maintained by **rs0n** as part of [The Ars0n Framework v2]
 ### Major Updates & Enhancements
 
 **🚀 Massive Service Expansion:**
-- **AWS**: Expanded from 2 to 40+ services (1900% increase)
+- **AWS**: Expanded from 2 to 39+ services (1850% increase)
 - **Azure**: Expanded from 17 to 24+ services (41% increase) 
 - **GCP**: Expanded from 5 to 15+ services (200% increase)
 
@@ -55,10 +55,10 @@ Multi-cloud OSINT tool. Enumerate public resources in AWS, Azure, and Google Clo
 
 Currently enumerates the following:
 
-**Amazon Web Services** (40+ services):
+**Amazon Web Services** (39+ services):
 - Open / Protected S3 Buckets
 - AWS Apps (WorkMail, WorkDocs, Connect, etc.)
-- ELB, RDS, DynamoDB, CloudWatch
+- RDS, DynamoDB, CloudWatch
 - Lambda, SQS, SNS, IAM
 - Secrets Manager, CloudFormation, AppSync, EKS, EFS
 - WorkSpaces, Elastic Transcoder, WorkDocs, EMR
@@ -131,7 +131,7 @@ For detailed output showing enumeration methodology and FQDN formats, use the ve
 
 ```sh
 # AWS specific services
-./cloud_enum.py -k keyword --aws-services s3,lambda,elb
+./cloud_enum.py -k keyword --aws-services s3,lambda,rds
 
 # Azure specific services  
 ./cloud_enum.py -k keyword --azure-services storage-accounts,websites,databases,container-registry,iot-hub
