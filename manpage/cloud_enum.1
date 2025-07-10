@@ -18,18 +18,17 @@ Currently enumerates the following:
 .PP
 .nf
 .fam C
-    Amazon Web Services (39+ services):
+    Amazon Web Services (14+ services):
      S3 Buckets with Advanced Detection (hybrid boto3/HTTP enumeration, proper 301 redirect handling)
      AWS Apps (WorkMail, WorkDocs, Connect, etc.)
-     RDS, DynamoDB, CloudWatch
-     Lambda, SQS, SNS, IAM
-     Secrets Manager, CloudFormation, AppSync, EKS, EFS
-     WorkSpaces, Elastic Transcoder, WorkDocs, EMR
-     Elastic Beanstalk, Cognito, Cloud9, Lightsail
-     WorkMail, Redshift, CloudTrail, Data Pipeline
-     KMS, IoT Core, Systems Manager, X-Ray
-     Batch, Snowball, Inspector, Kinesis, Step Functions
-     SageMaker, Redshift Spectrum, QuickSight, and more
+     SQS
+     EKS
+     WorkDocs, EMR
+     Elastic Beanstalk, Cognito, Cloud9
+     WorkMail, CloudTrail
+     IoT Core
+
+     SageMaker, QuickSight, and more
 
     Microsoft Azure (24+ services):
      Storage Accounts (Blob, File, Queue, Table)
@@ -67,11 +66,11 @@ Input file with a single keyword per line.
 .TP
 .B
 \fB-m\fP MUTATIONS, \fB--mutations\fP MUTATIONS
-Mutations. Default: /usr/lib/cloud-enum/enum_tools/fuzz.txt.
+Mutations. Default: /usr/lib/cloud-enum/enum_tools/fuzz_small.txt.
 .TP
 .B
 \fB-b\fP BRUTE, \fB--brute\fP BRUTE
-List to brute-force Azure container names. Default: /usr/lib/cloud-enum/enum_tools/fuzz.txt.
+List to brute-force Azure container names. Default: /usr/lib/cloud-enum/enum_tools/fuzz_small.txt.
 .TP
 .B
 \fB-t\fP THREADS, \fB--threads\fP THREADS
@@ -122,6 +121,10 @@ AWS access key ID for authenticated S3 enumeration.
 AWS secret access key for authenticated S3 enumeration.
 .TP
 .B
+\fB--aws-account-id\fP AWS_ACCOUNT_ID
+AWS account ID for SQS queue enumeration (12-digit number).
+.TP
+.B
 \fB--aws-regions\fP AWS_REGIONS
 Comma-separated list of AWS regions to check.
 .TP
@@ -165,7 +168,7 @@ cloud_enum \fB--show-services\fP
 .PP
 cloud_enum \fB--show-regions\fP
 .PP
-cloud_enum \fB-k\fP keyword \fB--aws-services\fP s3,lambda,api-gateway
+cloud_enum \fB-k\fP keyword \fB--aws-services\fP s3,sqs,eks
 .PP
 cloud_enum \fB-k\fP keyword \fB--azure-services\fP storage-accounts,websites,databases
 .PP

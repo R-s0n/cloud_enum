@@ -24,46 +24,15 @@ BANNER = '''
 S3_URL = 's3.amazonaws.com'
 S3_ACCELERATE_URL = 's3-accelerate.amazonaws.com'
 APPS_URL = 'awsapps.com'
-
-# AWS Service Domain Patterns
-RDS_URL = 'rds.amazonaws.com'
-DYNAMODB_URL = 'dynamodb.amazonaws.com'
-CLOUDWATCH_URL = 'cloudwatch.amazonaws.com'
-LAMBDA_URL = 'lambda.amazonaws.com'
-
 SQS_URL = 'sqs.amazonaws.com'
-SNS_URL = 'sns.amazonaws.com'
-IAM_URL = 'iam.amazonaws.com'
-SECRETS_MANAGER_URL = 'secretsmanager.amazonaws.com'
-CLOUDFORMATION_URL = 'cloudformation.amazonaws.com'
-APPSYNC_URL = 'appsync-api.amazonaws.com'
 EKS_URL = 'eks.amazonaws.com'
-EFS_URL = 'efs.amazonaws.com'
-WORKSPACES_URL = 'workspaces.amazonaws.com'
-ELASTIC_TRANSCODER_URL = 'elastictranscoder.amazonaws.com'
 WORKDOCS_URL = 'workdocs.amazonaws.com'
 EMR_URL = 'emr.amazonaws.com'
-
-# New AWS Service Domain Patterns
 ELASTIC_BEANSTALK_URL = 'elasticbeanstalk.com'
 CLOUDTRAIL_URL = 'cloudtrail.amazonaws.com'
-DATA_PIPELINE_URL = 'datapipeline.amazonaws.com'
-REDSHIFT_URL = 'redshift.amazonaws.com'
-REDSHIFT_SPECTRUM_URL = 'redshift.amazonaws.com'
-KMS_URL = 'kms.amazonaws.com'
 COGNITO_URL = 'amazoncognito.com'
 CLOUD9_URL = 'aws.amazon.com'
 IOT_CORE_URL = 'iot.amazonaws.com'
-ELASTIC_INFERENCE_URL = 'elasticinference.amazonaws.com'
-SSM_URL = 'ssm.amazonaws.com'
-XRAY_URL = 'xray.amazonaws.com'
-LIGHTSAIL_URL = 'lightsail.aws'
-WORKMAIL_URL = 'workmail.amazonaws.com'
-BATCH_URL = 'batch.amazonaws.com'
-SNOWBALL_URL = 'snowball.amazonaws.com'
-INSPECTOR_URL = 'inspector.amazonaws.com'
-KINESIS_URL = 'kinesis.amazonaws.com'
-STEP_FUNCTIONS_URL = 'states.amazonaws.com'
 SAGEMAKER_URL = 'sagemaker.amazonaws.com'
 QUICKSIGHT_URL = 'quicksight.amazonaws.com'
 
@@ -242,7 +211,7 @@ def print_s3_http_response(reply):
             data['msg'] = 'S3 Bucket Found (301 Redirect)'
             data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
             data['access'] = 'redirect'
-            utils.fmt_output(data)
+        utils.fmt_output(data)
     elif 'Slow Down' in reply.reason:
         print("[!] You've been rate limited, skipping rest of S3 check...")
         return 'breakout'
@@ -419,13 +388,13 @@ def check_s3_buckets_http(names, threads, regions_to_check=None, verbose=False):
     
     if verbose:
         print(f"[*] Testing across {len(regions)} regions: {', '.join(regions)}")
-
-    start_time = utils.start_timer()
     
+    start_time = utils.start_timer()
+
     # Filter out invalid bucket names to avoid connection errors
     valid_names = []
     invalid_names = []
-    
+
     for name in names:
         if is_valid_s3_bucket_name(name):
             valid_names.append(name)
@@ -479,7 +448,7 @@ def check_single_s3_bucket(bucket_name, s3_client, anonymous_client, verbose=Fal
         return None
         
     data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-    
+
     # Try with configured credentials first, then anonymous
     clients_to_try = [s3_client] if s3_client else []
     if anonymous_client:
@@ -490,7 +459,6 @@ def check_single_s3_bucket(bucket_name, s3_client, anonymous_client, verbose=Fal
             # Try to get bucket location to confirm existence (works globally)
             response = client.head_bucket(Bucket=bucket_name)
             
-
             # Bucket exists! Now get its actual region for region-specific operations
             bucket_region = 'us-east-1'  # Default fallback
             try:
@@ -568,7 +536,6 @@ def check_single_s3_bucket(bucket_name, s3_client, anonymous_client, verbose=Fal
             error_code = e.response['Error']['Code']
             http_status_code = e.response['ResponseMetadata']['HTTPStatusCode']
             
-
             if error_code == 'NoSuchBucket' or http_status_code == 404:
                 continue
             elif error_code in ['AccessDenied', 'Forbidden'] or http_status_code == 403:
@@ -608,21 +575,6 @@ def check_single_s3_bucket(bucket_name, s3_client, anonymous_client, verbose=Fal
     return None
 
 
-def check_s3_buckets(names, threads, verbose=False, aws_access_key=None, aws_secret_key=None, regions_to_check=None):
-    """
-    Hybrid S3 bucket enumeration - boto3 if credentials available, HTTP fallback otherwise
-    """
-    # Check for AWS credentials first
-    has_creds, s3_client = check_aws_credentials(aws_access_key, aws_secret_key)
-    
-    if has_creds:
-        # Use boto3 method with credentials
-        check_s3_buckets_boto3(names, threads, s3_client, verbose)
-    else:
-        # Fall back to HTTP method without credentials
-        check_s3_buckets_http(names, threads, regions_to_check, verbose)
-
-
 def check_s3_buckets_boto3(names, threads, s3_client, verbose=False):
     """
     Checks for Amazon S3 buckets using boto3 AWS API calls (when credentials available)
@@ -648,7 +600,7 @@ def check_s3_buckets_boto3(names, threads, s3_client, verbose=False):
 
         # Start a counter to report on elapsed time
         start_time = utils.start_timer()
-
+    
         # Create anonymous client as fallback for public bucket detection
         anonymous_client = None
         try:
@@ -725,10 +677,25 @@ def check_s3_buckets_boto3(names, threads, s3_client, verbose=False):
 
         # Stop the time
         utils.stop_timer(start_time)
-    
+        
     finally:
         # Restore original signal handler
         signal.signal(signal.SIGINT, original_handler)
+
+
+def check_s3_buckets(names, threads, verbose=False, aws_access_key=None, aws_secret_key=None, regions_to_check=None):
+    """
+    Hybrid S3 bucket enumeration - boto3 if credentials available, HTTP fallback otherwise
+    """
+    # Check for AWS credentials first
+    has_creds, s3_client = check_aws_credentials(aws_access_key, aws_secret_key)
+    
+    if has_creds:
+        # Use boto3 method with credentials
+        check_s3_buckets_boto3(names, threads, s3_client, verbose)
+    else:
+        # Fall back to HTTP method without credentials
+        check_s3_buckets_http(names, threads, regions_to_check, verbose)
 
 
 def check_awsapps(names, threads, nameserver, nameserverfile=False, verbose=False):
@@ -748,7 +715,7 @@ def check_awsapps(names, threads, nameserver, nameserverfile=False, verbose=Fals
 
     # Start a counter to report on elapsed time
     start_time = utils.start_timer()
-
+    
     # Initialize the list of domain names to look up
     candidates = []
 
@@ -772,216 +739,6 @@ def check_awsapps(names, threads, nameserver, nameserverfile=False, verbose=Fals
     utils.stop_timer(start_time)
 
 
-
-
-
-
-
-
-
-
-
-def check_rds(names, threads, nameserver, nameserverfile=False, verbose=False, selected_regions=None):
-    """
-    Checks for RDS instances using DNS validation across AWS regions
-    """
-    print("[+] Checking for RDS instances")
-    
-    # Use selected regions or all AWS regions by default
-    if selected_regions:
-        regions_to_check = selected_regions
-    else:
-        # Default to ALL AWS regions for comprehensive RDS scanning
-        regions_to_check = get_all_aws_regions()
-    
-    if verbose:
-        print(f"[*] RDS instances use format: dbname.<region>.{RDS_URL}")
-        print(f"[*] Real example: mycompany-prod.us-west-2.{RDS_URL}")
-        print(f"[*] Testing {len(names)} mutations across {len(regions_to_check)} regions")
-        print(f"[*] Regions: {', '.join(regions_to_check)}")
-        print(f"[*] DNS resolution = RDS exists (then check ports 3306/5432)")
-    
-    data = {'platform': 'aws', 'msg': 'RDS Instance Found:', 'target': '', 'access': ''}
-    
-    start_time = utils.start_timer()
-    candidates = []
-    
-    # RDS instances use region-specific domains
-    # Interleave regions so we test across regions early instead of exhausting one region first
-    for name in names:
-        for region in regions_to_check:
-            candidates.append(f'{name}.{region}.{RDS_URL}')
-    
-    if verbose:
-        print(f"[*] Total combinations to test: {len(candidates)}")
-    
-    # Use DNS validation instead of HTTP requests
-    valid_names = utils.fast_dns_lookup(candidates, nameserver,
-                                        nameserverfile, threads=threads, verbose=verbose)
-    
-    for name in valid_names:
-        data['target'] = f'{name} (Check DB ports: 3306/MySQL, 5432/PostgreSQL)'
-        data['access'] = 'investigate'
-        utils.fmt_output(data)
-    
-    utils.stop_timer(start_time)
-
-
-def print_dynamodb_response(reply):
-    """
-    Parses the HTTP reply for DynamoDB enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'DynamoDB Table Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN DynamoDB Table'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_dynamodb(names, threads, verbose=False):
-    """
-    Checks for DynamoDB tables
-    """
-    print("[+] Checking for DynamoDB tables")
-    
-    if verbose:
-        print(f"[*] DynamoDB uses format: tablename.{DYNAMODB_URL}")
-        print(f"[*] Real example: mycompany-users.{DYNAMODB_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open table, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{DYNAMODB_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_dynamodb_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-
-
-
-def check_cloudwatch(names, threads, nameserver, nameserverfile=False, verbose=False, selected_regions=None):
-    """
-    Checks for CloudWatch resources using DNS validation across AWS regions
-    """
-    print("[+] Checking for CloudWatch resources")
-    
-    # Use selected regions or all AWS regions by default
-    if selected_regions:
-        regions_to_check = selected_regions
-    else:
-        # Default to ALL AWS regions for comprehensive CloudWatch scanning
-        regions_to_check = get_all_aws_regions()
-    
-    if verbose:
-        print(f"[*] CloudWatch uses format: resource.cloudwatch.<region>.amazonaws.com")
-        print(f"[*] Real example: mycompany-logs.cloudwatch.us-west-2.amazonaws.com")
-        print(f"[*] Testing {len(names)} mutations across {len(regions_to_check)} regions")
-        print(f"[*] Regions: {', '.join(regions_to_check[:5])}{'...' if len(regions_to_check) > 5 else ''}")
-        print(f"[*] DNS resolution = CloudWatch resource exists")
-    
-    data = {'platform': 'aws', 'msg': 'CloudWatch Resource Found:', 'target': '', 'access': ''}
-    
-    start_time = utils.start_timer()
-    candidates = []
-    
-    # CloudWatch resources use region-specific domains
-    # Interleave regions so we test across regions early instead of exhausting one region first
-    for name in names:
-        for region in regions_to_check:
-            candidates.append(f'{name}.cloudwatch.{region}.amazonaws.com')
-    
-    if verbose:
-        print(f"[*] Total combinations to test: {len(candidates)}")
-    
-    # Use DNS validation instead of HTTP requests
-    valid_names = utils.fast_dns_lookup(candidates, nameserver,
-                                        nameserverfile, threads=threads, verbose=verbose)
-    
-    for name in valid_names:
-        data['target'] = f'{name} (CloudWatch logs/metrics/alarms)'
-        data['access'] = 'investigate'
-        utils.fmt_output(data)
-    
-    utils.stop_timer(start_time)
-
-
-def print_lambda_response(reply):
-    """
-    Parses the HTTP reply for Lambda enumeration
-    NOTE: Lambda functions aren't directly HTTP accessible unless using Function URLs
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass  # Function might not have HTTP endpoint
-    elif reply.status_code == 403:
-        data['msg'] = 'Lambda Function Found (Function URL Protected)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN Lambda Function URL'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    else:
-        # Any other response indicates Lambda domain exists
-        data['msg'] = f'Lambda Domain Found (HTTP {reply.status_code})'
-        data['target'] = reply.url
-        data['access'] = 'investigate'
-        utils.fmt_output(data)
-    return None
-
-
-def check_lambda(names, threads, verbose=False):
-    """
-    Checks for Lambda functions
-    """
-    print("[+] Checking for Lambda functions")
-    
-    if verbose:
-        print(f"[*] Lambda uses format: function.{LAMBDA_URL}")
-        print(f"[*] Real example: mycompany-processor.{LAMBDA_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open function URL, 403 = Auth required, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{LAMBDA_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_lambda_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-
-
-
 def print_sqs_response(reply):
     """
     Parses the HTTP reply for SQS enumeration
@@ -989,7 +746,7 @@ def print_sqs_response(reply):
     data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
 
     if reply.status_code == 404:
-        pass
+        pass  # Queue doesn't exist
     elif reply.status_code == 403:
         data['msg'] = 'SQS Queue Found (Access Denied)'
         data['target'] = reply.url
@@ -1000,32 +757,65 @@ def print_sqs_response(reply):
         data['target'] = reply.url
         data['access'] = 'public'
         utils.fmt_output(data)
+    elif reply.status_code == 400:
+        # Bad request might indicate queue exists but malformed request
+        data['msg'] = 'SQS Queue Found (Bad Request - Check Permissions)'
+        data['target'] = reply.url
+        data['access'] = 'investigate'
+        utils.fmt_output(data)
     elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
+        print("[!] You've been rate limited, skipping rest of SQS check...")
         return 'breakout'
     else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
+        # Any other response might indicate queue existence
+        if reply.status_code not in [404]:
+            data['msg'] = f'SQS Queue Found (HTTP {reply.status_code})'
+            data['target'] = reply.url
+            data['access'] = 'investigate'
+            utils.fmt_output(data)
     return None
 
 
-def check_sqs(names, threads, verbose=False):
+def check_sqs(names, threads, verbose=False, aws_account_id=None, selected_regions=None):
     """
-    Checks for SQS queues
+    Checks for SQS queues using proper AWS Account ID and region format
+    Requires AWS Account ID - will skip if not provided
     """
+    if not aws_account_id:
+        print("[!] SQS enumeration requires AWS Account ID (use --aws-account-id)")
+        print("[!] Skipping SQS enumeration...")
+        return
+    
     print("[+] Checking for SQS queues")
     
+    # Use selected regions or default to major regions for SQS
+    if selected_regions:
+        regions_to_check = selected_regions
+    else:
+        # Use major AWS regions for SQS enumeration
+        regions_to_check = [
+            'us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1',
+            'ap-southeast-1', 'ap-northeast-1', 'sa-east-1', 'ca-central-1'
+        ]
+    
     if verbose:
-        print(f"[*] SQS uses format: queue.{SQS_URL}")
-        print(f"[*] Real example: mycompany-jobs.{SQS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
+        print(f"[*] SQS uses format: https://sqs.region.amazonaws.com/{aws_account_id}/queue-name")
+        print(f"[*] Real example: https://sqs.us-east-1.amazonaws.com/{aws_account_id}/mycompany-jobs")
+        print(f"[*] Testing {len(names)} queue names across {len(regions_to_check)} regions")
+        print(f"[*] Regions: {', '.join(regions_to_check)}")
+        print(f"[*] Account ID: {aws_account_id}")
         print(f"[*] 200 = Open queue, 403 = Access denied, 404 = Not found")
     
     start_time = utils.start_timer()
     
     candidates = []
-    for name in names:
-        candidates.append(f'{name}.{SQS_URL}')
+    # Build SQS URLs with proper format: sqs.region.amazonaws.com/account_id/queue_name
+    for region in regions_to_check:
+        for name in names:
+            candidates.append(f'sqs.{region}.amazonaws.com/{aws_account_id}/{name}')
+    
+    if verbose:
+        print(f"[*] Total URL combinations to test: {len(candidates)}")
     
     utils.get_url_batch(candidates, use_ssl=True,
                         callback=print_sqs_response,
@@ -1033,447 +823,65 @@ def check_sqs(names, threads, verbose=False):
     utils.stop_timer(start_time)
 
 
-def print_sns_response(reply):
+def check_eks(names, threads, nameserver, nameserverfile=False, verbose=False):
     """
-    Parses the HTTP reply for SNS enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'SNS Topic Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN SNS Topic'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_sns(names, threads, verbose=False):
-    """
-    Checks for SNS topics
-    """
-    print("[+] Checking for SNS topics")
-    
-    if verbose:
-        print(f"[*] SNS uses format: topic.{SNS_URL}")
-        print(f"[*] Real example: mycompany-notifications.{SNS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open topic, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{SNS_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_sns_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_iam_response(reply):
-    """
-    Parses the HTTP reply for IAM enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'IAM Resource Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN IAM Resource'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_iam(names, threads, verbose=False):
-    """
-    Checks for IAM resources
-    """
-    print("[+] Checking for IAM resources")
-    
-    if verbose:
-        print(f"[*] IAM uses format: resource.{IAM_URL}")
-        print(f"[*] Real example: mycompany-role.{IAM_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open resource, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{IAM_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_iam_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_secrets_manager_response(reply):
-    """
-    Parses the HTTP reply for Secrets Manager enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'Secrets Manager Secret Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN Secrets Manager Secret'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_secrets_manager(names, threads, verbose=False):
-    """
-    Checks for Secrets Manager secrets
-    """
-    print("[+] Checking for Secrets Manager secrets")
-    
-    if verbose:
-        print(f"[*] Secrets Manager uses format: secret.{SECRETS_MANAGER_URL}")
-        print(f"[*] Real example: mycompany-db-password.{SECRETS_MANAGER_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open secret, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{SECRETS_MANAGER_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_secrets_manager_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_cloudformation_response(reply):
-    """
-    Parses the HTTP reply for CloudFormation enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'CloudFormation Stack Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN CloudFormation Stack'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_cloudformation(names, threads, verbose=False):
-    """
-    Checks for CloudFormation stacks
-    """
-    print("[+] Checking for CloudFormation stacks")
-    
-    if verbose:
-        print(f"[*] CloudFormation uses format: stack.{CLOUDFORMATION_URL}")
-        print(f"[*] Real example: mycompany-infrastructure.{CLOUDFORMATION_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open stack, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{CLOUDFORMATION_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_cloudformation_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_appsync_response(reply):
-    """
-    Parses the HTTP reply for AppSync enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'AppSync API Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN AppSync API'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_appsync(names, threads, verbose=False):
-    """
-    Checks for AppSync APIs
-    """
-    print("[+] Checking for AppSync APIs")
-    
-    if verbose:
-        print(f"[*] AppSync uses format: api.{APPSYNC_URL}")
-        print(f"[*] Real example: mycompany-graphql.{APPSYNC_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open API, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{APPSYNC_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_appsync_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_eks_response(reply):
-    """
-    Parses the HTTP reply for EKS enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'EKS Cluster Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN EKS Cluster'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_eks(names, threads, verbose=False):
-    """
-    Checks for EKS clusters
+    Checks for EKS clusters using DNS enumeration
+    EKS clusters are typically accessed through custom domains and ALBs, not predictable HTTP endpoints
     """
     print("[+] Checking for EKS clusters")
     
     if verbose:
-        print(f"[*] EKS uses format: cluster.{EKS_URL}")
-        print(f"[*] Real example: mycompany-prod-cluster.{EKS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open cluster, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{EKS_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_eks_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-
-
-
-def check_efs(names, threads, nameserver, nameserverfile=False, verbose=False):
-    """
-    Checks for EFS file systems using DNS validation
-    """
-    print("[+] Checking for EFS file systems")
-    
-    if verbose:
-        print(f"[*] EFS uses format: fsname.{EFS_URL}")
-        print(f"[*] Real example: mycompany-shared.{EFS_URL}")
+        print(f"[*] EKS clusters are accessed through custom domains and ALBs, not predictable URLs")
+        print(f"[*] Looking for DNS records that might indicate EKS deployments:")
+        print(f"[*] - Common patterns: cluster-name.company.com, eks-cluster.company.com")
+        print(f"[*] - ALB endpoints: cluster-name-alb-123456789.region.elb.amazonaws.com")
+        print(f"[*] - API server endpoints: cluster-name.cluster-id.region.eks.amazonaws.com")
         print(f"[*] Testing {len(names)} mutations via DNS A record lookups")
-        print(f"[*] DNS resolution = EFS exists (then check NFS port 2049)")
+        print(f"[*] DNS resolution = EKS-related resource found (then investigate)")
     
-    data = {'platform': 'aws', 'msg': 'EFS File System Found:', 'target': '', 'access': ''}
+    data = {'platform': 'aws', 'msg': 'EKS-related DNS Found:', 'target': '', 'access': ''}
     
     start_time = utils.start_timer()
     candidates = []
     
-    # EFS uses DNS sub-domains. Check DNS resolution only.
+    # Build EKS-related domain patterns
+    # Note: These are speculative patterns since EKS doesn't have predictable public domains
+    # Real EKS enumeration would target known company domains
     for name in names:
-        candidates.append(f'{name}.{EFS_URL}')
+        # Potential EKS API server patterns (these typically require authentication)
+        candidates.append(f'{name}.eks.amazonaws.com')
+        candidates.append(f'{name}-cluster.eks.amazonaws.com')
+        candidates.append(f'{name}-prod.eks.amazonaws.com')
+        candidates.append(f'{name}-dev.eks.amazonaws.com')
+        candidates.append(f'{name}-staging.eks.amazonaws.com')
+        
+        # Potential ALB patterns that might expose EKS services
+        # These would typically be in the format: name-alb-randomid.region.elb.amazonaws.com
+        # But without knowing the random ID and region, we can't predict them
+        
+    if verbose:
+        print(f"[*] Note: Real EKS enumeration typically targets known company domains")
+        print(f"[*] This check looks for potential EKS-related AWS subdomains")
+        print(f"[*] For comprehensive EKS discovery, also check company-specific domains")
     
-    # Use DNS validation instead of HTTP requests
+    # Use DNS validation to check for existence
     valid_names = utils.fast_dns_lookup(candidates, nameserver,
                                         nameserverfile, threads=threads, verbose=verbose)
     
     for name in valid_names:
-        data['target'] = f'{name} (Check NFS port 2049)'
+        # Check if the resolved domain points to AWS infrastructure
+        data['target'] = f'{name} (Investigate for EKS/ALB endpoints)'
         data['access'] = 'investigate'
         utils.fmt_output(data)
+        
+        if verbose:
+            print(f"[*] Found DNS record: {name}")
+            print(f"[*] This may indicate EKS infrastructure - investigate further")
     
-    utils.stop_timer(start_time)
-
-
-def print_workspaces_response(reply):
-    """
-    Parses the HTTP reply for WorkSpaces enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'WorkSpaces Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN WorkSpaces'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_workspaces(names, threads, verbose=False):
-    """
-    Checks for WorkSpaces
-    """
-    print("[+] Checking for WorkSpaces")
+    if verbose and not valid_names:
+        print(f"[*] No EKS-related DNS records found in AWS domains")
+        print(f"[*] Consider running DNS enumeration against known company domains")
     
-    if verbose:
-        print(f"[*] WorkSpaces uses format: workspace.{WORKSPACES_URL}")
-        print(f"[*] Real example: mycompany-desktop.{WORKSPACES_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open workspace, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{WORKSPACES_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_workspaces_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_elastic_transcoder_response(reply):
-    """
-    Parses the HTTP reply for Elastic Transcoder enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'Elastic Transcoder Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN Elastic Transcoder'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_elastic_transcoder(names, threads, verbose=False):
-    """
-    Checks for Elastic Transcoder pipelines
-    """
-    print("[+] Checking for Elastic Transcoder pipelines")
-    
-    if verbose:
-        print(f"[*] Elastic Transcoder uses format: pipeline.{ELASTIC_TRANSCODER_URL}")
-        print(f"[*] Real example: mycompany-video.{ELASTIC_TRANSCODER_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open pipeline, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{ELASTIC_TRANSCODER_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_elastic_transcoder_response,
-                        threads=threads, verbose=verbose)
     utils.stop_timer(start_time)
 
 
@@ -1528,54 +936,50 @@ def check_workdocs(names, threads, verbose=False):
     utils.stop_timer(start_time)
 
 
-def print_emr_response(reply):
+def check_emr(names, threads, nameserver, nameserverfile=False, verbose=False, selected_regions=None):
     """
-    Parses the HTTP reply for EMR enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass
-    elif reply.status_code == 403:
-        data['msg'] = 'EMR Cluster Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN EMR Cluster'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-    return None
-
-
-def check_emr(names, threads, verbose=False):
-    """
-    Checks for EMR clusters
+    Checks for EMR clusters using DNS validation across AWS regions
     """
     print("[+] Checking for EMR clusters")
     
+    # Use selected regions or all AWS regions by default
+    if selected_regions:
+        regions_to_check = selected_regions
+    else:
+        # Default to ALL AWS regions for comprehensive EMR scanning
+        regions_to_check = get_all_aws_regions()
+    
     if verbose:
-        print(f"[*] EMR uses format: cluster.{EMR_URL}")
-        print(f"[*] Real example: mycompany-bigdata.{EMR_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open cluster, 403 = Access denied, 404 = Not found")
+        print(f"[*] EMR clusters use format: clustername.emr.<region>.amazonaws.com")
+        print(f"[*] Real example: mycompany-bigdata.emr.us-east-1.amazonaws.com")
+        print(f"[*] Testing {len(names)} mutations across {len(regions_to_check)} regions")
+        print(f"[*] Regions: {', '.join(regions_to_check)}")
+        print(f"[*] DNS resolution = EMR cluster exists (typically VPC-internal)")
+        print(f"[*] Note: EMR clusters are usually private and not publicly accessible")
+    
+    data = {'platform': 'aws', 'msg': 'EMR Cluster Found:', 'target': '', 'access': ''}
     
     start_time = utils.start_timer()
-    
     candidates = []
-    for name in names:
-        candidates.append(f'{name}.{EMR_URL}')
     
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_emr_response,
-                        threads=threads, verbose=verbose)
+    # EMR clusters use region-specific domains
+    # Interleave regions so we test across regions early instead of exhausting one region first
+    for name in names:
+        for region in regions_to_check:
+            candidates.append(f'{name}.emr.{region}.amazonaws.com')
+    
+    if verbose:
+        print(f"[*] Total combinations to test: {len(candidates)}")
+    
+    # Use DNS validation instead of HTTP requests
+    valid_names = utils.fast_dns_lookup(candidates, nameserver,
+                                        nameserverfile, threads=threads, verbose=verbose)
+    
+    for name in valid_names:
+        data['target'] = f'{name} (Usually VPC-internal, check access)'
+        data['access'] = 'investigate'
+        utils.fmt_output(data)
+    
     utils.stop_timer(start_time)
 
 
@@ -1671,23 +1075,39 @@ def print_cognito_response(reply):
     return None
 
 
-def check_cognito(names, threads, verbose=False):
+def check_cognito(names, threads, verbose=False, selected_regions=None):
     """
-    Checks for Cognito user pools
+    Checks for Cognito user pools across AWS regions using proper domain format
     """
     print("[+] Checking for Cognito user pools")
     
+    # Use selected regions or default to major regions for Cognito
+    if selected_regions:
+        regions_to_check = selected_regions
+    else:
+        # Use major AWS regions for Cognito enumeration
+        regions_to_check = [
+            'us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1',
+            'ap-southeast-1', 'ap-northeast-1', 'sa-east-1', 'ca-central-1'
+        ]
+    
     if verbose:
-        print(f"[*] Cognito uses format: pool.{COGNITO_URL}")
-        print(f"[*] Real example: mycompany-users.{COGNITO_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
+        print(f"[*] Cognito uses format: user_pool_domain.auth.<region>.{COGNITO_URL}")
+        print(f"[*] Real example: mycompany-users.auth.us-east-1.{COGNITO_URL}")
+        print(f"[*] Testing {len(names)} mutations across {len(regions_to_check)} regions")
+        print(f"[*] Regions: {', '.join(regions_to_check)}")
         print(f"[*] 200 = Open pool, 403 = Access denied, 404 = Not found")
     
     start_time = utils.start_timer()
     
     candidates = []
+    # Build Cognito URLs with proper region format
     for name in names:
-        candidates.append(f'{name}.{COGNITO_URL}')
+        for region in regions_to_check:
+            candidates.append(f'{name}.auth.{region}.{COGNITO_URL}')
+    
+    if verbose:
+        print(f"[*] Total URL combinations to test: {len(candidates)}")
     
     utils.get_url_batch(candidates, use_ssl=True,
                         callback=print_cognito_response,
@@ -1753,167 +1173,95 @@ def check_cloud9(names, threads, verbose=False):
     utils.stop_timer(start_time)
 
 
-def print_lightsail_response(reply):
+def check_mx_records(domain, verbose=False):
     """
-    Parses the HTTP reply for Lightsail enumeration
+    Check if a domain has MX records pointing to AWS WorkMail infrastructure
+    Returns True if AWS WorkMail MX records are found, False otherwise
     """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
+    try:
+        import dns.resolver
+        
+        # Query MX records for the domain
+        answers = dns.resolver.resolve(domain, 'MX')
+        
+        # Look for AWS WorkMail indicators in MX records
+        aws_workmail_indicators = [
+            'inbound-smtp',
+            'amazonaws.com',
+            'awsapps.com'
+        ]
+        
+        mx_records = []
+        has_aws_workmail = False
+        
+        for rdata in answers:
+            mx_record = str(rdata.exchange).lower()
+            mx_records.append(mx_record)
+            
+            # Check if any MX record indicates AWS WorkMail
+            for indicator in aws_workmail_indicators:
+                if indicator in mx_record:
+                    has_aws_workmail = True
+                    break
+        
+        if verbose and mx_records:
+            print(f"[*] MX records for {domain}: {', '.join(mx_records)}")
+        
+        return has_aws_workmail, mx_records
+        
+    except ImportError:
+        if verbose:
+            print("[!] dnspython not installed. Install with: pip install dnspython")
+        return False, []
+    except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
+        if verbose:
+            print(f"[*] No MX records found for {domain} or domain does not exist")
+        return False, []
+    except Exception as e:
+        if verbose:
+            print(f"[*] Error checking MX records for {domain}: {e}")
+        return False, []
 
-    if reply.status_code == 404:
-        pass  # Instance doesn't exist
-    elif reply.status_code == 403:
-        data['msg'] = 'Lightsail Instance Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN Lightsail Instance'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif reply.status_code in [401, 429, 503]:
-        data['msg'] = 'Lightsail Instance Found (Service Issue)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        data['msg'] = f'Lightsail Domain Found (HTTP {reply.status_code})'
-        data['target'] = reply.url
-        data['access'] = 'unknown'
-        utils.fmt_output(data)
-    return None
 
-
-def check_lightsail(names, threads, verbose=False):
+def check_workmail(names, threads, nameserver, nameserverfile=False, verbose=False):
     """
-    Checks for Lightsail instances
-    """
-    print("[+] Checking for Lightsail instances")
-    
-    if verbose:
-        print(f"[*] Lightsail uses format: instance.{LIGHTSAIL_URL}")
-        print(f"[*] Real example: mycompany-server.{LIGHTSAIL_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open instance, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{LIGHTSAIL_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_lightsail_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_workmail_response(reply):
-    """
-    Parses the HTTP reply for WorkMail enumeration
-    """
-    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
-
-    if reply.status_code == 404:
-        pass  # Organization doesn't exist
-    elif reply.status_code == 403:
-        data['msg'] = 'WorkMail Organization Found (Access Denied)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN WorkMail Organization'
-        data['target'] = reply.url
-        data['access'] = 'public'
-        utils.fmt_output(data)
-    elif reply.status_code in [401, 429]:
-        data['msg'] = 'WorkMail Organization Found (Auth Required)'
-        data['target'] = reply.url
-        data['access'] = 'protected'
-        utils.fmt_output(data)
-    elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
-        return 'breakout'
-    else:
-        data['msg'] = f'WorkMail Domain Found (HTTP {reply.status_code})'
-        data['target'] = reply.url
-        data['access'] = 'unknown'
-        utils.fmt_output(data)
-    return None
-
-
-def check_workmail(names, threads, verbose=False):
-    """
-    Checks for WorkMail organizations
+    Checks for WorkMail organizations using MX record enumeration of awsapps.com domains
     """
     print("[+] Checking for WorkMail organizations")
     
     if verbose:
-        print(f"[*] WorkMail uses format: org.{WORKMAIL_URL}")
-        print(f"[*] Real example: mycompany-mail.{WORKMAIL_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open organization, 403 = Access denied, 404 = Not found")
+        print(f"[*] WorkMail uses format: org.{APPS_URL}")
+        print(f"[*] Real example: mycompany.{APPS_URL}")
+        print(f"[*] Testing {len(names)} mutations via DNS MX record lookups")
+        print(f"[*] Looking for MX records pointing to AWS mail infrastructure")
+        print(f"[*] Indicators: inbound-smtp, amazonaws.com, awsapps.com")
     
+    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
     start_time = utils.start_timer()
     
-    candidates = []
+    # Check MX records for each candidate domain
+    found_count = 0
     for name in names:
-        candidates.append(f'{name}.{WORKMAIL_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_workmail_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-
-
-
-def check_redshift(names, threads, nameserver, nameserverfile=False, verbose=False, selected_regions=None):
-    """
-    Checks for Redshift clusters using DNS validation across AWS regions
-    """
-    print("[+] Checking for Redshift clusters")
-    
-    # Use selected regions or all AWS regions by default
-    if selected_regions:
-        regions_to_check = selected_regions
-    else:
-        # Default to ALL AWS regions for comprehensive Redshift scanning
-        regions_to_check = get_all_aws_regions()
+        domain = f'{name}.{APPS_URL}'
+        
+        has_workmail, mx_records = check_mx_records(domain, verbose)
+        
+        if has_workmail:
+            found_count += 1
+            data['msg'] = 'WorkMail Organization Found'
+            data['target'] = f'{domain} (MX: {", ".join(mx_records[:2])}{"..." if len(mx_records) > 2 else ""})'
+            data['access'] = 'protected'
+            utils.fmt_output(data)
+            
+            if verbose:
+                print(f"[*] {domain}: WORKMAIL DETECTED")
+                for mx in mx_records:
+                    print(f"    MX Record: {mx}")
+        elif verbose:
+            print(f"[*] {domain}: No WorkMail indicators found")
     
     if verbose:
-        print(f"[*] Redshift uses format: clustername.<region>.{REDSHIFT_URL}")
-        print(f"[*] Real example: mycompany-dwh.us-west-2.{REDSHIFT_URL}")
-        print(f"[*] Testing {len(names)} mutations across {len(regions_to_check)} regions")
-        print(f"[*] Regions: {', '.join(regions_to_check)}")
-        print(f"[*] DNS resolution = Redshift exists (then check port 5439)")
-    
-    data = {'platform': 'aws', 'msg': 'Redshift Cluster Found:', 'target': '', 'access': ''}
-    
-    start_time = utils.start_timer()
-    candidates = []
-    
-    # Redshift clusters use region-specific domains
-    # Interleave regions so we test across regions early instead of exhausting one region first
-    for name in names:
-        for region in regions_to_check:
-            candidates.append(f'{name}.{region}.{REDSHIFT_URL}')
-    
-    if verbose:
-        print(f"[*] Total combinations to test: {len(candidates)}")
-    
-    # Use DNS validation instead of HTTP requests
-    valid_names = utils.fast_dns_lookup(candidates, nameserver,
-                                        nameserverfile, threads=threads, verbose=verbose)
-    
-    for name in valid_names:
-        data['target'] = f'{name} (Check port 5439/PostgreSQL)'
-        data['access'] = 'investigate'
-        utils.fmt_output(data)
+        print(f"[*] Found {found_count} WorkMail organizations out of {len(names)} tested")
     
     utils.stop_timer(start_time)
 
@@ -1956,93 +1304,115 @@ def print_api_service_response(reply, service_name):
 
 def print_cloudtrail_response(reply):
     """
-    Parses the HTTP reply for CloudTrail enumeration
+    Parses the HTTP reply for CloudTrail S3 log enumeration
     """
-    return print_api_service_response(reply, 'CloudTrail')
+    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
+
+    if reply.status_code == 404:
+        pass  # CloudTrail logs don't exist for this path
+    elif reply.status_code == 403:
+        data['msg'] = 'CloudTrail Logs Found (Access Denied)'
+        data['target'] = reply.url
+        data['access'] = 'protected'
+        utils.fmt_output(data)
+    elif reply.status_code == 200:
+        data['msg'] = 'OPEN CloudTrail Logs'
+        data['target'] = reply.url
+        data['access'] = 'public'
+        utils.fmt_output(data)
+    elif reply.status_code == 301:
+        # S3 redirect to correct regional endpoint
+        data['msg'] = 'CloudTrail Logs Found (301 Redirect)'
+        data['target'] = reply.url
+        data['access'] = 'redirect'
+        utils.fmt_output(data)
+    elif 'Slow Down' in reply.reason:
+        print("[!] You've been rate limited, skipping rest of CloudTrail check...")
+        return 'breakout'
+    else:
+        # Any other response might indicate log existence
+        if reply.status_code not in [404]:
+            data['msg'] = f'CloudTrail Logs Found (HTTP {reply.status_code})'
+            data['target'] = reply.url
+            data['access'] = 'investigate'
+            utils.fmt_output(data)
+    return None
 
 
-def check_cloudtrail(names, threads, verbose=False):
+def generate_cloudtrail_dates(days_back=14):
     """
-    Checks for CloudTrail trails
+    Generate date strings for the past N days in CloudTrail format (YYYY/MM/DD)
     """
-    print("[+] Checking for CloudTrail trails")
+    from datetime import datetime, timedelta
+    
+    dates = []
+    for i in range(days_back):
+        date = datetime.now() - timedelta(days=i)
+        dates.append(date.strftime('%Y/%m/%d'))
+    
+    return dates
+
+
+def check_cloudtrail(names, threads, verbose=False, aws_account_id=None, selected_regions=None):
+    """
+    Checks for CloudTrail logs in S3 buckets using proper AWS Account ID and region format
+    CloudTrail logs are stored in S3 with format: AWSLogs/{account-id}/CloudTrail/{region}/{year}/{month}/{day}/
+    Requires AWS Account ID - will skip if not provided
+    """
+    if not aws_account_id:
+        print("[!] CloudTrail enumeration requires AWS Account ID (use --aws-account-id)")
+        print("[!] Skipping CloudTrail enumeration...")
+        return
+    
+    print("[+] Checking for CloudTrail logs in S3")
+    
+    # Use selected regions or default to major regions for CloudTrail
+    if selected_regions:
+        regions_to_check = selected_regions
+    else:
+        # Use major AWS regions for CloudTrail enumeration
+        regions_to_check = [
+            'us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1',
+            'ap-southeast-1', 'ap-northeast-1', 'sa-east-1', 'ca-central-1'
+        ]
+    
+    # Generate date ranges for the past 14 days
+    dates_to_check = generate_cloudtrail_dates(14)
     
     if verbose:
-        print(f"[*] CloudTrail uses format: trail.{CLOUDTRAIL_URL}")
-        print(f"[*] Real example: mycompany-audit.{CLOUDTRAIL_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open trail, 403 = Access denied, 404 = Not found")
+        print(f"[*] CloudTrail logs stored in S3 format: AWSLogs/{aws_account_id}/CloudTrail/region/YYYY/MM/DD/")
+        print(f"[*] Real example: https://s3.amazonaws.com/AWSLogs/{aws_account_id}/CloudTrail/us-east-1/2023/12/15/")
+        print(f"[*] Testing {len(names)} bucket names across {len(regions_to_check)} regions and {len(dates_to_check)} dates")
+        print(f"[*] Regions: {', '.join(regions_to_check)}")
+        print(f"[*] Account ID: {aws_account_id}")
+        print(f"[*] Date range: {dates_to_check[0]} to {dates_to_check[-1]} (past 14 days)")
+        print(f"[*] 200 = Open logs, 403 = Access denied, 404 = Not found")
     
     start_time = utils.start_timer()
     
     candidates = []
+    # Build CloudTrail S3 URLs with proper format
     for name in names:
-        candidates.append(f'{name}.{CLOUDTRAIL_URL}')
+        # Test potential S3 bucket names that might contain CloudTrail logs
+        for region in regions_to_check:
+            for date in dates_to_check:
+                # Try common CloudTrail bucket naming patterns
+                # Format: https://s3.amazonaws.com/bucket-name/AWSLogs/account-id/CloudTrail/region/date/
+                candidates.append(f's3.amazonaws.com/{name}-cloudtrail/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+                candidates.append(f's3.amazonaws.com/{name}-cloudtrail-logs/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+                candidates.append(f's3.amazonaws.com/{name}-audit/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+                candidates.append(f's3.amazonaws.com/{name}-logs/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+                candidates.append(f's3.amazonaws.com/{name}/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+                # Also test common default bucket name
+                candidates.append(f's3.amazonaws.com/{name}-{aws_account_id}-cloudtrail/AWSLogs/{aws_account_id}/CloudTrail/{region}/{date}/')
+    
+    if verbose:
+        print(f"[*] Total URL combinations to test: {len(candidates)}")
+        print(f"[*] Testing common CloudTrail bucket patterns: -cloudtrail, -cloudtrail-logs, -audit, -logs")
+        print(f"[*] Also testing pattern: name-accountid-cloudtrail")
     
     utils.get_url_batch(candidates, use_ssl=True,
                         callback=print_cloudtrail_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_data_pipeline_response(reply):
-    """
-    Parses the HTTP reply for Data Pipeline enumeration
-    """
-    return print_api_service_response(reply, 'Data Pipeline')
-
-
-def check_data_pipeline(names, threads, verbose=False):
-    """
-    Checks for Data Pipeline pipelines
-    """
-    print("[+] Checking for Data Pipeline pipelines")
-    
-    if verbose:
-        print(f"[*] Data Pipeline uses format: pipeline.{DATA_PIPELINE_URL}")
-        print(f"[*] Real example: mycompany-etl.{DATA_PIPELINE_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open pipeline, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{DATA_PIPELINE_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_data_pipeline_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_kms_response(reply):
-    """
-    Parses the HTTP reply for KMS enumeration
-    """
-    return print_api_service_response(reply, 'KMS')
-
-
-def check_kms(names, threads, verbose=False):
-    """
-    Checks for KMS keys
-    """
-    print("[+] Checking for KMS keys")
-    
-    if verbose:
-        print(f"[*] KMS uses format: key.{KMS_URL}")
-        print(f"[*] Real example: mycompany-encryption.{KMS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open key, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{KMS_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_kms_response,
                         threads=threads, verbose=verbose)
     utils.stop_timer(start_time)
 
@@ -2078,254 +1448,6 @@ def check_iot_core(names, threads, verbose=False):
     utils.stop_timer(start_time)
 
 
-def print_elastic_inference_response(reply):
-    """
-    Parses the HTTP reply for Elastic Inference enumeration
-    """
-    return print_api_service_response(reply, 'Elastic Inference')
-
-
-def check_elastic_inference(names, threads, verbose=False):
-    """
-    Checks for Elastic Inference instances
-    """
-    print("[+] Checking for Elastic Inference instances")
-    
-    if verbose:
-        print(f"[*] Elastic Inference uses format: instance.{ELASTIC_INFERENCE_URL}")
-        print(f"[*] Real example: mycompany-ai.{ELASTIC_INFERENCE_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open instance, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{ELASTIC_INFERENCE_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_elastic_inference_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_ssm_response(reply):
-    """
-    Parses the HTTP reply for Systems Manager enumeration
-    """
-    return print_api_service_response(reply, 'Systems Manager (SSM)')
-
-
-def check_ssm(names, threads, verbose=False):
-    """
-    Checks for Systems Manager resources
-    """
-    print("[+] Checking for Systems Manager resources")
-    
-    if verbose:
-        print(f"[*] SSM uses format: parameter.{SSM_URL}")
-        print(f"[*] Real example: mycompany-config.{SSM_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open resource, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{SSM_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_ssm_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_xray_response(reply):
-    """
-    Parses the HTTP reply for X-Ray enumeration
-    """
-    return print_api_service_response(reply, 'X-Ray')
-
-
-def check_xray(names, threads, verbose=False):
-    """
-    Checks for X-Ray resources
-    """
-    print("[+] Checking for X-Ray resources")
-    
-    if verbose:
-        print(f"[*] X-Ray uses format: trace.{XRAY_URL}")
-        print(f"[*] Real example: mycompany-traces.{XRAY_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open resource, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{XRAY_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_xray_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_batch_response(reply):
-    """
-    Parses the HTTP reply for Batch enumeration
-    """
-    return print_api_service_response(reply, 'Batch')
-
-
-def check_batch(names, threads, verbose=False):
-    """
-    Checks for Batch jobs and compute environments
-    """
-    print("[+] Checking for Batch jobs and compute environments")
-    
-    if verbose:
-        print(f"[*] Batch uses format: job.{BATCH_URL}")
-        print(f"[*] Real example: mycompany-processing.{BATCH_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open job, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{BATCH_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_batch_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_snowball_response(reply):
-    """
-    Parses the HTTP reply for Snowball enumeration
-    """
-    return print_api_service_response(reply, 'Snowball')
-
-
-def check_snowball(names, threads, verbose=False):
-    """
-    Checks for Snowball jobs
-    """
-    print("[+] Checking for Snowball jobs")
-    
-    if verbose:
-        print(f"[*] Snowball uses format: job.{SNOWBALL_URL}")
-        print(f"[*] Real example: mycompany-migration.{SNOWBALL_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open job, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{SNOWBALL_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_snowball_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_inspector_response(reply):
-    """
-    Parses the HTTP reply for Inspector enumeration
-    """
-    return print_api_service_response(reply, 'Inspector')
-
-
-def check_inspector(names, threads, verbose=False):
-    """
-    Checks for Inspector assessments
-    """
-    print("[+] Checking for Inspector assessments")
-    
-    if verbose:
-        print(f"[*] Inspector uses format: assessment.{INSPECTOR_URL}")
-        print(f"[*] Real example: mycompany-security.{INSPECTOR_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open assessment, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{INSPECTOR_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_inspector_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_kinesis_response(reply):
-    """
-    Parses the HTTP reply for Kinesis enumeration
-    """
-    return print_api_service_response(reply, 'Kinesis Stream')
-
-
-def check_kinesis(names, threads, verbose=False):
-    """
-    Checks for Kinesis streams
-    """
-    print("[+] Checking for Kinesis streams")
-    
-    if verbose:
-        print(f"[*] Kinesis uses format: streamname.{KINESIS_URL}")
-        print(f"[*] Real example: mycompany-logs.{KINESIS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open stream, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{KINESIS_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_kinesis_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_step_functions_response(reply):
-    """
-    Parses the HTTP reply for Step Functions enumeration
-    """
-    return print_api_service_response(reply, 'Step Functions')
-
-
-def check_step_functions(names, threads, verbose=False):
-    """
-    Checks for Step Functions state machines
-    """
-    print("[+] Checking for Step Functions state machines")
-    
-    if verbose:
-        print(f"[*] Step Functions uses format: state-machine-name.{STEP_FUNCTIONS_URL}")
-        print(f"[*] Real example: mycompany-process.{STEP_FUNCTIONS_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open state machine, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}.{STEP_FUNCTIONS_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_step_functions_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
 def print_sagemaker_response(reply):
     """
     Parses the HTTP reply for SageMaker enumeration
@@ -2353,37 +1475,6 @@ def check_sagemaker(names, threads, verbose=False):
     
     utils.get_url_batch(candidates, use_ssl=True,
                         callback=print_sagemaker_response,
-                        threads=threads, verbose=verbose)
-    utils.stop_timer(start_time)
-
-
-def print_redshift_spectrum_response(reply):
-    """
-    Parses the HTTP reply for Redshift Spectrum enumeration
-    """
-    return print_api_service_response(reply, 'Redshift Spectrum')
-
-
-def check_redshift_spectrum(names, threads, verbose=False):
-    """
-    Checks for Redshift Spectrum resources
-    """
-    print("[+] Checking for Redshift Spectrum resources")
-    
-    if verbose:
-        print(f"[*] Redshift Spectrum uses format: spectrum.{REDSHIFT_SPECTRUM_URL}")
-        print(f"[*] Real example: mycompany-spectrum.{REDSHIFT_SPECTRUM_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open resource, 403 = Access denied, 404 = Not found")
-    
-    start_time = utils.start_timer()
-    
-    candidates = []
-    for name in names:
-        candidates.append(f'{name}-spectrum.{REDSHIFT_SPECTRUM_URL}')
-    
-    utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_redshift_spectrum_response,
                         threads=threads, verbose=verbose)
     utils.stop_timer(start_time)
 
@@ -2423,42 +1514,19 @@ def check_quicksight(names, threads, verbose=False):
 SERVICE_FUNCTIONS = {
     's3': 'check_s3_buckets',
     'awsapps': 'check_awsapps',
-    'rds': 'check_rds',
-    'dynamodb': 'check_dynamodb',
-    'cloudwatch': 'check_cloudwatch',
-    'lambda': 'check_lambda',
+
+
     'sqs': 'check_sqs',
-    'sns': 'check_sns',
-    'iam': 'check_iam',
-    'secrets-manager': 'check_secrets_manager',
-    'cloudformation': 'check_cloudformation',
-    'appsync': 'check_appsync',
     'eks': 'check_eks',
-    'efs': 'check_efs',
-    'workspaces': 'check_workspaces',
-    'elastic-transcoder': 'check_elastic_transcoder',
     'workdocs': 'check_workdocs',
     'emr': 'check_emr',
     'elastic-beanstalk': 'check_elastic_beanstalk',
     'cognito': 'check_cognito',
     'cloud9': 'check_cloud9',
-    'lightsail': 'check_lightsail',
     'workmail': 'check_workmail',
-    'redshift': 'check_redshift',
     'cloudtrail': 'check_cloudtrail',
-    'data-pipeline': 'check_data_pipeline',
-    'kms': 'check_kms',
     'iot-core': 'check_iot_core',
-    'elastic-inference': 'check_elastic_inference',
-    'ssm': 'check_ssm',
-    'xray': 'check_xray',
-    'batch': 'check_batch',
-    'snowball': 'check_snowball',
-    'inspector': 'check_inspector',
-    'kinesis': 'check_kinesis',
-    'step-functions': 'check_step_functions',
     'sagemaker': 'check_sagemaker',
-    'redshift-spectrum': 'check_redshift_spectrum',
     'quicksight': 'check_quicksight'
 }
 
@@ -2503,9 +1571,14 @@ def run_all(names, args):
                     aws_access_key = getattr(args, 'aws_access_key', None)
                     aws_secret_key = getattr(args, 'aws_secret_key', None)
                     func(names, args.threads, verbose, aws_access_key, aws_secret_key, regions_to_use)
-                elif service in ['rds', 'redshift', 'cloudwatch']:  # Services that need region support
+                elif service in ['sqs', 'cloudtrail']:  # SQS and CloudTrail need account ID and regions
+                    aws_account_id = getattr(args, 'aws_account_id', None)
+                    func(names, args.threads, verbose, aws_account_id, regions_to_use)
+                elif service in ['emr']:  # Services that need region support via DNS
                     func(names, args.threads, args.nameserver, args.nameserverfile, verbose, regions_to_use)
-                elif service in ['efs']:  # Other database services use DNS validation
+                elif service in ['cognito']:  # Services that need region support via HTTPS
+                    func(names, args.threads, verbose, regions_to_use)
+                elif service in ['eks', 'workmail']:  # Services that use DNS validation
                     func(names, args.threads, args.nameserver, args.nameserverfile, verbose)
                 else:
                     # All services should support verbose - call with verbose parameter

@@ -161,3 +161,609 @@
 {"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
 {"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
 {"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:42:53 ####
+
+
+#### CLOUD_ENUM 10/07/2025 11:49:06 ####
+
+
+#### CLOUD_ENUM 10/07/2025 11:52:31 ####
+
+
+#### CLOUD_ENUM 10/07/2025 13:02:14 ####
+
+
+#### CLOUD_ENUM 10/07/2025 13:04:02 ####
+
+
+#### CLOUD_ENUM 10/07/2025 13:05:45 ####
+
+
+#### CLOUD_ENUM 10/07/2025 13:25:07 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 14:03:24 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 14:10:43 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 14:55:51 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 15:10:05 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 15:37:31 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 15:40:09 ####
+
+
+#### CLOUD_ENUM 10/07/2025 15:40:12 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:03:30 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:03:36 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 16:13:34 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:19:12 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 16:26:40 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:40:22 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:43:45 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:51:31 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:53:28 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:56:35 ####
+
+
+#### CLOUD_ENUM 10/07/2025 16:56:51 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:08:06 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:09:51 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:12:15 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:20:42 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:30:33 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:32:57 ####
+
+
+#### CLOUD_ENUM 10/07/2025 17:42:42 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 17:46:07 ####
+{"platform": "azure", "msg": "HTTPS-Only Account", "target": "http://floqast.blob.core.windows.net/", "access": "public"}
+{"platform": "azure", "msg": "HTTPS-Only Account", "target": "http://floqast.file.core.windows.net/", "access": "public"}
+{"platform": "azure", "msg": "HTTPS-Only Account", "target": "http://floqast.queue.core.windows.net/", "access": "public"}
+{"platform": "azure", "msg": "HTTPS-Only Account", "target": "http://floqast.table.core.windows.net/", "access": "public"}
+{"platform": "azure", "msg": "Data Lake Storage Found (HTTP 400)", "target": "https://floqast.dfs.core.windows.net/", "access": "unknown"}
+
+
+#### CLOUD_ENUM 10/07/2025 18:11:06 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "super.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "bucket.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 18:19:32 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "super.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "bucket.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-east-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-east-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-us-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-us-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-west-2.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.us-west-2.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-us-west-2.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-us-west-2.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.eu-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.eu-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-eu-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-eu-west-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.eu-central-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.eu-central-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-eu-central-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-eu-central-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.ap-southeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.ap-southeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-ap-southeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-ap-southeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.ap-northeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3.ap-northeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-ap-northeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superadminbucket.s3-ap-northeast-1.amazonaws.com -> superadminbucket.s3.us-east-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "superadminbucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "superadminbucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-east-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-east-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-us-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-us-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-west-2.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.us-west-2.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-us-west-2.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-us-west-2.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.eu-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.eu-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-eu-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-eu-west-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.eu-central-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.eu-central-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-eu-central-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-eu-central-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.ap-southeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.ap-southeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-ap-southeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-ap-southeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.ap-northeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3.ap-northeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-ap-northeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-admin-bucket.s3-ap-northeast-1.amazonaws.com -> super-admin-bucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "super-admin-bucket.s3.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "super-admin-bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-east-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-east-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-us-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-us-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-west-2.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.us-west-2.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-us-west-2.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-us-west-2.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.eu-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.eu-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-eu-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-eu-west-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.eu-central-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.eu-central-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-eu-central-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-eu-central-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.ap-southeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.ap-southeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-ap-southeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-ap-southeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.ap-northeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3.ap-northeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-ap-northeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "superappbucket.s3-ap-northeast-1.amazonaws.com -> superappbucket.s3.ap-south-1.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "superappbucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "superappbucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super-app-bucket.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-ap-southeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3.ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-app-bucket.s3-ap-northeast-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super-app-bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "super-app-bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "super-bucket.s3.us-east-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-us-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-us-west-2.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-eu-west-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3.eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "super-bucket.s3-eu-central-1.amazonaws.com -> s3.amazonaws.com", "access": "redirect"}

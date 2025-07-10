@@ -29,14 +29,12 @@ forked by github.com/R-s0n
 
 # Define available services for each cloud provider
 AWS_SERVICES = [
-    's3', 'awsapps', 'rds', 'dynamodb', 'cloudwatch',
-    'lambda', 'sqs', 'sns', 'iam', 'secrets-manager', 
-    'cloudformation', 'appsync', 'eks', 'efs', 'workspaces', 
-    'elastic-transcoder', 'workdocs', 'emr', 'elastic-beanstalk', 
-    'cognito', 'cloud9', 'lightsail', 'workmail', 'redshift', 
-    'cloudtrail', 'data-pipeline', 'kms', 'iot-core', 'elastic-inference',
-    'ssm', 'xray', 'batch', 'snowball', 'inspector', 'kinesis',
-    'step-functions', 'sagemaker', 'redshift-spectrum', 'quicksight'
+    's3', 'awsapps', 'sqs', 
+    'eks', 
+    'workdocs', 'emr', 'elastic-beanstalk', 
+    'cognito', 'cloud9', 'workmail', 
+    'cloudtrail', 'iot-core',
+    'sagemaker', 'quicksight'
 ]
 
 AZURE_SERVICES = [
@@ -88,14 +86,14 @@ def parse_arguments():
 
     # Use included mutations file by default, or let the user provide one
     parser.add_argument('-m', '--mutations', type=str, action='store',
-                        default=script_path + '/enum_tools/fuzz.txt',
-                        help='Mutations. Default: enum_tools/fuzz.txt')
+                        default=os.path.join(script_path, 'enum_tools', 'fuzz_small.txt'),
+                        help='Mutations. Default: enum_tools/fuzz_small.txt')
 
     # Use include container brute-force or let the user provide one
     parser.add_argument('-b', '--brute', type=str, action='store',
-                        default=script_path + '/enum_tools/fuzz.txt',
+                        default=os.path.join(script_path, 'enum_tools', 'fuzz_small.txt'),
                         help='List to brute-force Azure container names.'
-                        '  Default: enum_tools/fuzz.txt')
+                        '  Default: enum_tools/fuzz_small.txt')
 
     parser.add_argument('-t', '--threads', type=int, action='store',
                         default=5, help='Threads for HTTP brute-force.'
@@ -128,11 +126,18 @@ def parse_arguments():
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Enable verbose output showing detailed enumeration process')
 
+    # Keyword processing logic
+    parser.add_argument('--keyword-logic', type=str, action='store',
+                        choices=['seq', 'conc'], default='conc',
+                        help='Keyword processing logic: seq (sequential - current behavior) or conc (concurrent - mutations between keywords). Default: conc')
+
     # AWS credential arguments
     parser.add_argument('--aws-access-key', type=str, action='store',
                         help='AWS access key ID for authenticated requests')
     parser.add_argument('--aws-secret-key', type=str, action='store',
                         help='AWS secret access key for authenticated requests')
+    parser.add_argument('--aws-account-id', type=str, action='store',
+                        help='AWS account ID for SQS queue enumeration (12-digit number)')
 
     # Region control arguments
     parser.add_argument('--aws-regions', type=str, action='store',
@@ -188,6 +193,13 @@ def parse_arguments():
         args.azure_services = validate_services(args.azure_services, AZURE_SERVICES, 'Azure')
     if args.gcp_services:
         args.gcp_services = validate_services(args.gcp_services, GCP_SERVICES, 'GCP')
+
+    # Validate AWS account ID if provided
+    if args.aws_account_id:
+        if not re.match(r'^\d{12}$', args.aws_account_id):
+            print("[!] AWS Account ID must be a 12-digit number")
+            sys.exit(1)
+        print(f"[+] Using AWS Account ID: {args.aws_account_id}")
 
     # Ensure mutations file is readable
     if not os.access(args.mutations, os.R_OK):
@@ -330,7 +342,7 @@ def show_available_services():
         print(f"  {i:2d}. {service}")
     
     print("\nExample usage:")
-    print("  --aws-services s3,lambda,rds")
+    print("  --aws-services s3,sqs,eks")
     print("  --azure-services storage-accounts,websites,databases")
     print("  --gcp-services gcp-buckets,app-engine,cloud-functions")
 
@@ -345,6 +357,11 @@ def print_status(args):
     else:
         print(f"Mutations:   {args.mutations}")
     print(f"Brute-list:  {args.brute}")
+    print(f"Keyword Logic: {args.keyword_logic} ({'sequential' if args.keyword_logic == 'seq' else 'concurrent - mutations between keywords'})")
+    
+    # Show AWS account ID if provided
+    if hasattr(args, 'aws_account_id') and args.aws_account_id:
+        print(f"AWS Account ID: {args.aws_account_id}")
     
     # Show region/service selections
     if args.aws_regions:
@@ -408,38 +425,98 @@ def append_name(name, names_list):
         names_list.append(name)
 
 
-def build_names(base_list, mutations):
+def build_names(base_list, mutations, keyword_logic='conc'):
     """
     Combine base and mutations for processing by individual modules.
+    
+    Args:
+        base_list: List of base keywords
+        mutations: List of mutation strings  
+        keyword_logic: 'seq' for sequential (current behavior) or 'conc' for concurrent (mutations between keywords)
     """
     names = []
 
-    for base in base_list:
-        # Clean base
-        base = clean_text(base)
+    if keyword_logic == 'seq':
+        # Sequential logic: Process each keyword individually (original behavior)
+        for base in base_list:
+            # Clean base
+            base = clean_text(base)
 
-        # First, include with no mutations
-        append_name(base, names)
+            # First, include with no mutations
+            append_name(base, names)
 
-        for mutation in mutations:
-            # Clean mutation
-            mutation = clean_text(mutation)
+            for mutation in mutations:
+                # Clean mutation
+                mutation = clean_text(mutation)
 
-            # Then, do appends
-            append_name(f"{base}{mutation}", names)
-            append_name(f"{base}.{mutation}", names)
-            append_name(f"{base}-{mutation}", names)
-            append_name(f"{base}_{mutation}", names)
+                # Then, do appends
+                append_name(f"{base}{mutation}", names)
+                append_name(f"{base}.{mutation}", names)
+                append_name(f"{base}-{mutation}", names)
+                append_name(f"{base}_{mutation}", names)
 
-            # Then, do prepends
-            append_name(f"{mutation}{base}", names)
-            append_name(f"{mutation}.{base}", names)
-            append_name(f"{mutation}-{base}", names)
-            append_name(f"{mutation}_{base}", names)
+                # Then, do prepends
+                append_name(f"{mutation}{base}", names)
+                append_name(f"{mutation}.{base}", names)
+                append_name(f"{mutation}-{base}", names)
+                append_name(f"{mutation}_{base}", names)
 
-    print(f"[+] Mutated results: {len(names)} items")
+    else:  # 'conc' - Concurrent logic
+        # Clean all bases first
+        clean_bases = [clean_text(base) for base in base_list]
+        clean_mutations = [clean_text(mutation) for mutation in mutations]
+        
+        # Step 1: Add original keywords as-is
+        for base in clean_bases:
+            append_name(base, names)
+        
+        # Step 2: Generate keyword combinations with mutations between them
+        if len(clean_bases) > 1:
+            import itertools
+            
+            # Generate all 2+ keyword combinations
+            for r in range(2, len(clean_bases) + 1):
+                for keyword_combo in itertools.permutations(clean_bases, r):
+                    # For each keyword combination, try mutations between them
+                    for mutation in clean_mutations:
+                        # Join with mutation using different separators
+                        separators = ['', '.', '-', '_']
+                        for sep in separators:
+                            # Insert mutation between keywords
+                            joined_with_mutation = f"{sep}{mutation}{sep}".join(keyword_combo)
+                            append_name(joined_with_mutation, names)
+                    
+                    # Also try combinations without mutations (just keywords joined)
+                    for sep in ['.', '-', '_']:
+                        simple_combo = sep.join(keyword_combo)
+                        append_name(simple_combo, names)
+        
+        # Step 3: Apply traditional front/back mutations to individual keywords
+        for base in clean_bases:
+            for mutation in clean_mutations:
+                # Then, do appends
+                append_name(f"{base}{mutation}", names)
+                append_name(f"{base}.{mutation}", names)
+                append_name(f"{base}-{mutation}", names)
+                append_name(f"{base}_{mutation}", names)
 
-    return names
+                # Then, do prepends
+                append_name(f"{mutation}{base}", names)
+                append_name(f"{mutation}.{base}", names)
+                append_name(f"{mutation}-{base}", names)
+                append_name(f"{mutation}_{base}", names)
+
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_names = []
+    for name in names:
+        if name not in seen:
+            seen.add(name)
+            unique_names.append(name)
+
+    print(f"[+] Mutated results: {len(unique_names)} items (logic: {keyword_logic})")
+
+    return unique_names
 
 def read_nameservers(file_path):
     try:
@@ -473,7 +550,7 @@ def main():
         mutations = []
     else:
         mutations = read_mutations(args.mutations)
-    names = build_names(args.keyword, mutations)
+    names = build_names(args.keyword, mutations, args.keyword_logic)
 
     # All the work is done in the individual modules
     try:
