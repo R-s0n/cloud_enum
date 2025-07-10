@@ -9,7 +9,7 @@ DESCRIPTION
   Currently enumerates the following:
 
     Amazon Web Services (39+ services):
-     Open / Protected S3 Buckets
+     S3 Buckets with Advanced Detection (hybrid boto3/HTTP enumeration, proper 301 redirect handling)
      AWS Apps (WorkMail, WorkDocs, Connect, etc.)
      RDS, DynamoDB, CloudWatch
      Lambda, SQS, SNS, IAM
@@ -55,6 +55,8 @@ OPTIONS
   --disable-gcp                             Disable Google checks.
   -qs, --quickscan                          Disable all mutations and second-level scan.
   -v, --verbose                             Show detailed enumeration process including FQDN formats and HTTP response meanings.
+  --aws-access-key AWS_ACCESS_KEY           AWS access key ID for authenticated S3 enumeration.
+  --aws-secret-key AWS_SECRET_KEY           AWS secret access key for authenticated S3 enumeration.
   --aws-regions AWS_REGIONS                 Comma-separated list of AWS regions to check.
   --azure-regions AZURE_REGIONS             Comma-separated list of Azure regions to check.
   --gcp-regions GCP_REGIONS                 Comma-separated list of GCP regions to check.
@@ -86,6 +88,8 @@ EXAMPLES
   cloud_enum -k keyword --aws-regions us-east-1,us-west-2,eu-west-1
 
   cloud_enum -k keyword --gcp-services cloud-functions --gcp-regions us-central1,us-east1
+
+  cloud_enum -k keyword --aws-services s3 --aws-access-key AKIA... --aws-secret-key secret...
 
 AUTHOR
   Written by initstring <initstring@protonmail.com>

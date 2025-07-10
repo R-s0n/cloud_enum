@@ -1,0 +1,163 @@
+
+
+#### CLOUD_ENUM 10/07/2025 09:58:03 ####
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3-eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "fq-production-eu-collaborate-dirty-bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 09:58:25 ####
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3-eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "fq-production-eu-collaborate-dirty-bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:03:03 ####
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3-eu-central-1.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "Protected S3 Bucket", "target": "fq-production-eu-collaborate-dirty-bucket.s3.amazonaws.com", "access": "protected"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "fq-production-eu-collaborate-dirty-bucket.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:06:22 ####
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:19:06 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:19:47 ####
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:42:36 ####
+
+
+#### CLOUD_ENUM 10/07/2025 10:43:10 ####
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-us-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-west-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-eu-central-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-southeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3.ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 301)", "target": "floqast.s3-ap-northeast-1.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:48:34 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 10:59:32 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:03:08 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-west-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.eu-west-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-eu-west-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.eu-central-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-eu-central-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.ap-southeast-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-ap-southeast-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.ap-northeast-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-ap-northeast-1.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:11:17 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:19:22 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:20:54 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:22:20 ####
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3.us-east-1.amazonaws.com", "access": "public"}
+
+
+#### CLOUD_ENUM 10/07/2025 11:27:43 ####
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-east-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-us-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-west-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-eu-central-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-southeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3.ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (301 Redirect)", "target": "floqast.s3-ap-northeast-1.amazonaws.com -> floqast.s3-us-west-2.amazonaws.com", "access": "redirect"}
+{"platform": "aws", "msg": "S3 Bucket Found (HTTP 400)", "target": "floqast.s3-accelerate.amazonaws.com", "access": "investigate"}
+{"platform": "aws", "msg": "OPEN S3 BUCKET", "target": "floqast.s3-us-west-2.amazonaws.com", "access": "public"}

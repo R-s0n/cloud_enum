@@ -3,7 +3,16 @@ AWS-specific checks. Part of the cloud_enum package available at
 github.com/initstring/cloud_enum
 """
 
+import boto3
+import botocore
+import signal
+import sys
+from botocore.exceptions import ClientError, NoCredentialsError, PartialCredentialsError
+from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError
 from enum_tools import utils
+
+# Global flag for interrupt handling
+_interrupt_flag = False
 
 BANNER = '''
 ++++++++++++++++++++++++++
@@ -13,6 +22,7 @@ BANNER = '''
 
 # Known S3 domain names
 S3_URL = 's3.amazonaws.com'
+S3_ACCELERATE_URL = 's3-accelerate.amazonaws.com'
 APPS_URL = 'awsapps.com'
 
 # AWS Service Domain Patterns
@@ -140,72 +150,585 @@ def get_all_aws_regions():
     return regions
 
 
-def print_s3_response(reply):
+def check_aws_credentials(access_key=None, secret_key=None):
     """
-    Parses the HTTP reply of a brute-force attempt
+    Check if AWS credentials are available and valid
+    Returns tuple: (has_creds, boto3_client_or_none)
+    """
+    try:
+        import boto3
+        from botocore.exceptions import ClientError, NoCredentialsError, PartialCredentialsError
+        from botocore.config import Config
+        
+        config = Config(
+            read_timeout=5,
+            connect_timeout=5,
+            retries={'max_attempts': 1}
+        )
+        
+        # Try to create client with provided credentials or default chain
+        if access_key and secret_key:
+            s3_client = boto3.client(
+                's3',
+                config=config,
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key
+            )
+        else:
+            s3_client = boto3.client('s3', config=config)
+        
+        # Test credentials by calling list_buckets
+        s3_client.list_buckets()
+        return True, s3_client
+        
+    except (NoCredentialsError, PartialCredentialsError):
+        return False, None
+    except ClientError as e:
+        # If we get a ClientError, credentials are configured but might not have permissions
+        # This is still "valid" credentials, just limited permissions
+        return True, s3_client
+    except Exception:
+        return False, None
 
-    This function is passed into the class object so we can view results
-    in real-time.
+
+# Global set to collect unique redirect endpoints during S3 scanning
+_s3_redirect_endpoints = set()
+
+def print_s3_http_response(reply):
     """
-    from urllib.parse import urlparse
-    
+    Parses the HTTP reply for S3 bucket enumeration (fallback method)
+    """
+    global _s3_redirect_endpoints
     data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
 
     if reply.status_code == 404:
-        pass
-    elif 'Bad Request' in reply.reason:
-        pass
-    elif reply.status_code == 200:
-        data['msg'] = 'OPEN S3 BUCKET'
-        data['target'] = urlparse(reply.url).netloc
-        data['access'] = 'public'
-        utils.fmt_output(data)
-        utils.list_bucket_contents(reply.url)
+        pass  # Bucket doesn't exist
     elif reply.status_code == 403:
         data['msg'] = 'Protected S3 Bucket'
-        data['target'] = urlparse(reply.url).netloc
+        data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
         data['access'] = 'protected'
         utils.fmt_output(data)
+    elif reply.status_code == 200:
+        # Direct access to bucket
+        data['msg'] = 'OPEN S3 BUCKET'
+        data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
+        data['access'] = 'public'
+        utils.fmt_output(data)
+    elif reply.status_code == 301:
+        # HTTP 301 = Redirect to correct regional endpoint
+        # Parse XML response to get the correct endpoint and collect for later testing
+        try:
+            import xml.etree.ElementTree as ET
+            root = ET.fromstring(reply.text)
+            # Look for <Endpoint> tag in the XML
+            endpoint_elem = root.find('Endpoint')
+            if endpoint_elem is not None:
+                correct_endpoint = endpoint_elem.text
+                # Add to set of unique endpoints for later testing
+                _s3_redirect_endpoints.add(correct_endpoint)
+                # Log the redirect during scan
+                data['msg'] = 'S3 Bucket Found (301 Redirect)'
+                data['target'] = reply.url.replace('https://', '').replace('/index.html', '') + ' -> ' + correct_endpoint
+                data['access'] = 'redirect'
+                utils.fmt_output(data)
+            else:
+                # No endpoint found in XML, still report bucket existence
+                data['msg'] = 'S3 Bucket Found (301 Redirect)'
+                data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
+                data['access'] = 'redirect'
+                utils.fmt_output(data)
+        except Exception:
+            # XML parsing failed, still report bucket existence
+            data['msg'] = 'S3 Bucket Found (301 Redirect)'
+            data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
+            data['access'] = 'redirect'
+            utils.fmt_output(data)
     elif 'Slow Down' in reply.reason:
-        print("[!] You've been rate limited, skipping rest of check...")
+        print("[!] You've been rate limited, skipping rest of S3 check...")
         return 'breakout'
     else:
-        print(f"    Unknown status codes being received from {reply.url}:\n"
-              "       {reply.status_code}: {reply.reason}")
-
+        # Any other response might indicate bucket existence
+        if reply.status_code not in [404]:
+            data['msg'] = f'S3 Bucket Found (HTTP {reply.status_code})'
+            data['target'] = reply.url.replace('https://', '').replace('/index.html', '')
+            data['access'] = 'investigate'
+            utils.fmt_output(data)
     return None
 
 
-def check_s3_buckets(names, threads, verbose=False):
+def test_s3_redirect_endpoints(verbose=False):
     """
-    Checks for open and restricted Amazon S3 buckets
+    Test collected redirect endpoints to determine if they're open or protected
     """
-    print("[+] Checking for S3 buckets")
+    global _s3_redirect_endpoints
+    
+    if not _s3_redirect_endpoints:
+        return
     
     if verbose:
-        print(f"[*] S3 buckets use format: bucketname.{S3_URL}/index.html")
-        print(f"[*] Real example: company-backups.{S3_URL}/index.html")
-        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
-        print(f"[*] 200 = Open bucket, 403 = Protected bucket, 404 = Not found")
+        print(f"[*] Testing {len(_s3_redirect_endpoints)} unique redirect endpoints...")
+    
+    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
+    
+    for endpoint in _s3_redirect_endpoints:
+        try:
+            import requests
+            follow_up_url = f'https://{endpoint}/'
+            response = requests.get(follow_up_url, timeout=10)
+            
+            if response.status_code == 200:
+                data['msg'] = 'OPEN S3 BUCKET'
+                data['target'] = endpoint
+                data['access'] = 'public'
+                utils.fmt_output(data)
+                if verbose:
+                    print(f"[*] {endpoint}: OPEN (200 response)")
+            elif response.status_code == 403:
+                data['msg'] = 'Protected S3 Bucket'
+                data['target'] = endpoint
+                data['access'] = 'protected'
+                utils.fmt_output(data)
+                if verbose:
+                    print(f"[*] {endpoint}: PROTECTED (403 response)")
+            else:
+                data['msg'] = f'S3 Bucket Found (HTTP {response.status_code})'
+                data['target'] = endpoint
+                data['access'] = 'investigate'
+                utils.fmt_output(data)
+                if verbose:
+                    print(f"[*] {endpoint}: UNKNOWN ({response.status_code} response)")
+                    
+        except Exception as e:
+            if verbose:
+                print(f"[*] {endpoint}: ERROR (Exception: {e})")
+    
+    # Clear the set for future scans
+    _s3_redirect_endpoints.clear()
 
-    # Start a counter to report on elapsed time
+
+def is_valid_s3_bucket_name(bucket_name):
+    """
+    Check if bucket name follows AWS S3 naming rules to avoid connection errors
+    Returns True if valid for virtual hosted-style URLs
+    """
+    if not bucket_name:
+        return False
+    
+    # Length check (3-63 characters)
+    if len(bucket_name) < 3 or len(bucket_name) > 63:
+        return False
+    
+    # Character check: only lowercase letters, numbers, and hyphens
+    # Exclude underscores and dots to avoid DNS/SSL issues with virtual hosting
+    import re
+    if not re.match(r'^[a-z0-9-]+$', bucket_name):
+        return False
+    
+    # Must start and end with letter or number
+    if not (bucket_name[0].isalnum() and bucket_name[-1].isalnum()):
+        return False
+    
+    # Cannot be formatted as IP address
+    if re.match(r'^\d+\.\d+\.\d+\.\d+$', bucket_name):
+        return False
+    
+    return True
+
+
+def check_s3_rate_limiting():
+    """
+    Check if user is being rate limited by AWS by testing a known public bucket.
+    Returns True if rate limited, False if OK to proceed.
+    """
+    import requests
+    
+    test_url = "https://floqast.s3-us-west-2.amazonaws.com/"
+    
+    try:
+        response = requests.get(test_url, timeout=10)
+        
+        # This bucket should return 200 with XML content
+        if response.status_code == 200:
+            return False  # Not rate limited
+        elif response.status_code == 404:
+            return True   # Likely rate limited
+        else:
+            # Other status codes might indicate rate limiting too
+            return response.status_code in [429, 503, 403]
+            
+    except requests.exceptions.RequestException:
+        # Connection issues might indicate rate limiting
+        return True
+
+
+def check_s3_buckets_http(names, threads, regions_to_check=None, verbose=False):
+    """
+    HTTP-based S3 bucket enumeration (fallback when no credentials)
+    Tests multiple regional endpoint formats
+    """
+    global _s3_redirect_endpoints
+    _s3_redirect_endpoints.clear()  # Start fresh for each scan
+    
+    print("[+] Checking for S3 buckets (HTTP method)")
+    
+    if verbose:
+        print(f"[*] Using HTTP requests to check {len(names)} bucket name mutations")
+        print(f"[*] Testing multiple S3 endpoint formats across regions")
+        print(f"[*] No AWS credentials found - using HTTP fallback method")
+        print(f"[*] Results: 200 = Open bucket, 403 = Protected bucket, 404 = Not found")
+    
+    # Check for AWS rate limiting before proceeding
+    if verbose:
+        print("[*] Checking for AWS rate limiting...")
+    
+    if check_s3_rate_limiting():
+        print("")
+        print("="*60)
+        print("🚫 AWS RATE LIMITING DETECTED")
+        print("="*60)
+        print("")
+        print("[!] Your IP address appears to be rate limited by AWS S3.")
+        print("[!] The test request to a known public bucket returned an unexpected response.")
+        print("")
+        print("💡 SOLUTIONS:")
+        print("   1. Wait 10-15 minutes and try again")
+        print("   2. Use a VPN to change your IP address")
+        print("   3. Use AWS credentials with --aws-access-key and --aws-secret-key")
+        print("   4. Run the tool from a different network/location")
+        print("")
+        print("🔍 WHY THIS HAPPENS:")
+        print("   - AWS automatically rate limits excessive HTTP requests")
+        print("   - Previous enumeration tools or scans may have triggered limits")
+        print("   - Your IP may be flagged for automated requests")
+        print("")
+        print("⚠️  Skipping S3 HTTP enumeration to avoid false negatives.")
+        print("="*60)
+        print("")
+        return
+    
+    if verbose:
+        print("[*] Rate limiting check passed - proceeding with S3 enumeration")
+
+    # Use provided regions or default to key regions for HTTP checks
+    if regions_to_check:
+        regions = regions_to_check
+    else:
+        # Use a subset of major regions for HTTP to avoid excessive requests
+        regions = ['us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1', 
+                  'ap-southeast-1', 'ap-northeast-1']
+    
+    if verbose:
+        print(f"[*] Testing across {len(regions)} regions: {', '.join(regions)}")
+
     start_time = utils.start_timer()
-
-    # Initialize the list of correctly formatted urls
-    candidates = []
-
-    # Take each mutated keyword craft a url with the correct format
-    # Using /index.html path to get proper bucket existence detection
+    
+    # Filter out invalid bucket names to avoid connection errors
+    valid_names = []
+    invalid_names = []
+    
     for name in names:
-        candidates.append(f'{name}.{S3_URL}/index.html')
+        if is_valid_s3_bucket_name(name):
+            valid_names.append(name)
+        else:
+            invalid_names.append(name)
+    
+    if verbose and invalid_names:
+        print(f"[*] Skipped {len(invalid_names)} invalid bucket names (contain dots/underscores/invalid chars)")
+        if len(invalid_names) <= 10:
+            print(f"[*] Invalid names: {', '.join(invalid_names)}")
+        else:
+            print(f"[*] Examples: {', '.join(invalid_names[:5])}...")
+    
+    if verbose:
+        print(f"[*] Testing {len(valid_names)} valid bucket names (filtered from {len(names)} total)")
+    
+    candidates = []
+    
+    # Build all S3 URL variations for valid bucket names only
+    for name in valid_names:
+        # Standard S3 URLs (region-specific)
+        for region in regions:
+            candidates.append(f'{name}.s3.{region}.amazonaws.com/index.html')
+            candidates.append(f'{name}.s3-{region}.amazonaws.com/index.html')
+        
+        # Legacy and special endpoints
+        candidates.append(f'{name}.s3.amazonaws.com/index.html')  # Legacy
+        candidates.append(f'{name}.s3-accelerate.amazonaws.com/index.html')  # Transfer acceleration
 
-    # Send the valid names to the batch HTTP processor
+    if verbose:
+        print(f"[*] Total URL combinations to test: {len(candidates)} (optimized - no connection errors expected)")
+
+    # Use HTTP batch processing
     utils.get_url_batch(candidates, use_ssl=True,
-                        callback=print_s3_response,
+                        callback=print_s3_http_response,
                         threads=threads, verbose=verbose)
-
-    # Stop the time
+    
+    # After main scan, test any redirect endpoints we collected
+    test_s3_redirect_endpoints(verbose)
+    
     utils.stop_timer(start_time)
+
+
+def check_single_s3_bucket(bucket_name, s3_client, anonymous_client, verbose=False):
+    """
+    Check if a single S3 bucket exists using boto3
+    Returns tuple: (bucket_name, status, access_level, region)
+    """
+    # Check for interrupt early
+    if _interrupt_flag:
+        return None
+        
+    data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
+    
+    # Try with configured credentials first, then anonymous
+    clients_to_try = [s3_client] if s3_client else []
+    if anonymous_client:
+        clients_to_try.append(anonymous_client)
+    
+    for client in clients_to_try:
+        try:
+            # Try to get bucket location to confirm existence (works globally)
+            response = client.head_bucket(Bucket=bucket_name)
+            
+
+            # Bucket exists! Now get its actual region for region-specific operations
+            bucket_region = 'us-east-1'  # Default fallback
+            try:
+                location_response = client.get_bucket_location(Bucket=bucket_name)
+                bucket_region = location_response.get('LocationConstraint') or 'us-east-1'
+            except Exception:
+                if verbose:
+                    print(f"[*] {bucket_name}: Could not determine region, using us-east-1")
+            
+            # Create region-specific client for content operations if needed
+            region_client = client
+            try:
+                if client == s3_client:  # Authenticated client
+                    from botocore.config import Config
+                    config = Config(
+                        read_timeout=10,
+                        connect_timeout=10,
+                        retries={'max_attempts': 1}
+                    )
+                    region_client = boto3.client('s3', config=config, region_name=bucket_region)
+                else:  # Anonymous client
+                    from botocore.config import Config
+                    anonymous_config = Config(
+                        signature_version=botocore.UNSIGNED,
+                        read_timeout=10,
+                        connect_timeout=10,
+                        retries={'max_attempts': 1}
+                    )
+                    region_client = boto3.client('s3', config=anonymous_config, region_name=bucket_region)
+            except Exception:
+                # If region-specific client creation fails, use original global client
+                region_client = client
+            
+            # Bucket exists, try to list objects to determine access level
+            try:
+                region_client.list_objects_v2(Bucket=bucket_name, MaxKeys=1)
+                data['msg'] = 'OPEN S3 BUCKET'
+                data['target'] = f'{bucket_name}.s3.{bucket_region}.amazonaws.com'
+                data['access'] = 'public'
+                utils.fmt_output(data)
+                
+                if verbose:
+                    print(f"[*] {bucket_name}: OPEN (publicly accessible, region: {bucket_region})")
+                    
+                # Try to list some contents using region-specific client
+                if verbose:
+                    try:
+                        response = region_client.list_objects_v2(Bucket=bucket_name, MaxKeys=10)
+                        if 'Contents' in response:
+                            print(f"    Sample contents:")
+                            for obj in response.get('Contents', [])[:5]:
+                                print(f"      - {obj['Key']} ({obj['Size']} bytes)")
+                            if len(response.get('Contents', [])) == 10:
+                                print("      ... (more files)")
+                    except Exception as e:
+                        print(f"    Could not list contents: {e}")
+                    
+                return bucket_name, 'public', 'authenticated' if client == s3_client else 'anonymous'
+                
+            except ClientError as e:
+                error_code = e.response['Error']['Code']
+
+                if error_code == 'AccessDenied':
+                    data['msg'] = 'Protected S3 Bucket'
+                    data['target'] = f'{bucket_name}.s3.{bucket_region}.amazonaws.com'
+                    data['access'] = 'protected'
+                    utils.fmt_output(data)
+                    if verbose:
+                        print(f"[*] {bucket_name}: PROTECTED (exists but private, region: {bucket_region})")
+                    return bucket_name, 'protected', 'authenticated' if client == s3_client else 'anonymous'
+                else:
+                    continue
+                    
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            http_status_code = e.response['ResponseMetadata']['HTTPStatusCode']
+            
+
+            if error_code == 'NoSuchBucket' or http_status_code == 404:
+                continue
+            elif error_code in ['AccessDenied', 'Forbidden'] or http_status_code == 403:
+                # Bucket exists but we can't access it (403 = bucket exists but private)
+                # Try to get region if possible, but don't fail if we can't
+                bucket_region = 'unknown'
+                try:
+                    location_response = client.get_bucket_location(Bucket=bucket_name)
+                    bucket_region = location_response.get('LocationConstraint') or 'us-east-1'
+                except Exception:
+                    bucket_region = 'unknown'
+                
+                data['msg'] = 'Protected S3 Bucket'
+                data['target'] = f'{bucket_name}.s3.amazonaws.com' if bucket_region == 'unknown' else f'{bucket_name}.s3.{bucket_region}.amazonaws.com'
+                data['access'] = 'protected'
+                utils.fmt_output(data)
+                if verbose:
+                    region_info = f', region: {bucket_region}' if bucket_region != 'unknown' else ''
+                    print(f"[*] {bucket_name}: PROTECTED (exists but private{region_info})")
+                return bucket_name, 'protected', 'authenticated' if client == s3_client else 'anonymous'
+            elif error_code in ['SlowDown', 'RequestTimeTooSkewed']:
+                if verbose:
+                    print(f"[!] {bucket_name}: RATE LIMITED, skipping...")
+                continue
+            else:
+                if verbose:
+                    print(f"[*] {bucket_name}: ERROR ({error_code})")
+                continue
+        except Exception as ex:
+            if verbose:
+                print(f"[*] {bucket_name}: ERROR (Exception: {ex})")
+            continue
+    
+    # If we get here, bucket was not found
+    if verbose:
+        print(f"[*] {bucket_name}: NOT FOUND")
+    return None
+
+
+def check_s3_buckets(names, threads, verbose=False, aws_access_key=None, aws_secret_key=None, regions_to_check=None):
+    """
+    Hybrid S3 bucket enumeration - boto3 if credentials available, HTTP fallback otherwise
+    """
+    # Check for AWS credentials first
+    has_creds, s3_client = check_aws_credentials(aws_access_key, aws_secret_key)
+    
+    if has_creds:
+        # Use boto3 method with credentials
+        check_s3_buckets_boto3(names, threads, s3_client, verbose)
+    else:
+        # Fall back to HTTP method without credentials
+        check_s3_buckets_http(names, threads, regions_to_check, verbose)
+
+
+def check_s3_buckets_boto3(names, threads, s3_client, verbose=False):
+    """
+    Checks for Amazon S3 buckets using boto3 AWS API calls (when credentials available)
+    """
+    print("[+] Checking for S3 buckets (boto3 method)")
+    
+    # Set up signal handler for better Ctrl+C handling
+    def signal_handler(signum, frame):
+        global _interrupt_flag
+        _interrupt_flag = True
+        print("\n[!] Interrupted by user (Ctrl+C)")
+        print("[!] Stopping S3 bucket enumeration...")
+        sys.exit(1)  # Force exit
+    
+    original_handler = signal.signal(signal.SIGINT, signal_handler)
+    
+    try:
+        if verbose:
+            print(f"[*] Using boto3 AWS API to check {len(names)} bucket name mutations")
+            print(f"[*] Using authenticated AWS credentials for reliable bucket detection")
+            print(f"[*] S3 bucket names are globally unique, but buckets are tied to specific regions")
+            print(f"[*] Results: Open bucket, Protected bucket, Access denied, or Not found")
+
+        # Start a counter to report on elapsed time
+        start_time = utils.start_timer()
+
+        # Create anonymous client as fallback for public bucket detection
+        anonymous_client = None
+        try:
+            from botocore.config import Config
+            anonymous_config = Config(
+                signature_version=botocore.UNSIGNED,
+                read_timeout=10,
+                connect_timeout=10,
+                retries={'max_attempts': 1}
+            )
+            anonymous_client = boto3.client(
+                's3',
+                config=anonymous_config,
+                region_name='us-east-1'
+            )
+            if verbose:
+                print("[*] Anonymous S3 client created as fallback for public bucket detection")
+        except Exception as e:
+            if verbose:
+                print(f"[*] Could not create anonymous client: {e}")
+
+        # Process bucket names with threading
+        results = []
+        executor = None
+        
+        try:
+            executor = ThreadPoolExecutor(max_workers=threads)
+            future_to_bucket = {
+                executor.submit(check_single_s3_bucket, name, s3_client, anonymous_client, verbose): name 
+                for name in names
+            }
+            
+            # Use timeout on as_completed to make it more responsive to interrupts
+            for future in as_completed(future_to_bucket, timeout=30):
+                # Check for interrupt flag frequently
+                if _interrupt_flag:
+                    print("[!] Interrupt detected, stopping immediately...")
+                    break
+                    
+                bucket_name = future_to_bucket[future]
+                try:
+                    result = future.result(timeout=1)  # Short timeout to be more responsive
+                    if result:
+                        results.append(result)
+                except TimeoutError:
+                    if verbose:
+                        print(f"[*] {bucket_name}: TIMEOUT (request took too long)")
+                except Exception as e:
+                    if verbose:
+                        print(f"[*] Error checking bucket {bucket_name}: {e}")
+                        
+        except KeyboardInterrupt:
+            print("\n[!] Interrupted by user (Ctrl+C)")
+            print("[!] Stopping S3 bucket enumeration...")
+            
+            # Cancel all pending futures
+            if executor:
+                print("[!] Canceling pending requests...")
+                for future in future_to_bucket:
+                    future.cancel()
+                
+                # Shutdown executor immediately without waiting
+                executor.shutdown(wait=False)
+            return
+        finally:
+            # Ensure executor is properly closed
+            if executor:
+                executor.shutdown(wait=False)
+
+        if verbose and results:
+            print(f"[*] Found {len(results)} existing S3 buckets")
+        elif verbose:
+            print("[*] No S3 buckets found")
+
+        # Stop the time
+        utils.stop_timer(start_time)
+    
+    finally:
+        # Restore original signal handler
+        signal.signal(signal.SIGINT, original_handler)
 
 
 def check_awsapps(names, threads, nameserver, nameserverfile=False, verbose=False):
@@ -1975,6 +2498,11 @@ def run_all(names, args):
                 # Special handling for different function signatures
                 if service == 'awsapps':
                     func(names, args.threads, args.nameserver, args.nameserverfile, verbose)
+                elif service == 's3':  # S3 uses hybrid method
+                    # Pass AWS credentials and regions to S3 function
+                    aws_access_key = getattr(args, 'aws_access_key', None)
+                    aws_secret_key = getattr(args, 'aws_secret_key', None)
+                    func(names, args.threads, verbose, aws_access_key, aws_secret_key, regions_to_use)
                 elif service in ['rds', 'redshift', 'cloudwatch']:  # Services that need region support
                     func(names, args.threads, args.nameserver, args.nameserverfile, verbose, regions_to_use)
                 elif service in ['efs']:  # Other database services use DNS validation

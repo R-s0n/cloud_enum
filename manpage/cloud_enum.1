@@ -19,7 +19,7 @@ Currently enumerates the following:
 .nf
 .fam C
     Amazon Web Services (39+ services):
-     Open / Protected S3 Buckets
+     S3 Buckets with Advanced Detection (hybrid boto3/HTTP enumeration, proper 301 redirect handling)
      AWS Apps (WorkMail, WorkDocs, Connect, etc.)
      RDS, DynamoDB, CloudWatch
      Lambda, SQS, SNS, IAM
@@ -114,6 +114,14 @@ Disable all mutations and second-level scan.
 Show detailed enumeration process including FQDN formats and HTTP response meanings.
 .TP
 .B
+\fB--aws-access-key\fP AWS_ACCESS_KEY
+AWS access key ID for authenticated S3 enumeration.
+.TP
+.B
+\fB--aws-secret-key\fP AWS_SECRET_KEY
+AWS secret access key for authenticated S3 enumeration.
+.TP
+.B
 \fB--aws-regions\fP AWS_REGIONS
 Comma-separated list of AWS regions to check.
 .TP
@@ -166,6 +174,8 @@ cloud_enum \fB-k\fP keyword \fB--gcp-services\fP gcp-buckets,app-engine,cloud-fu
 cloud_enum \fB-k\fP keyword \fB--aws-regions\fP us-east-1,us-west-2,eu-west-1
 .PP
 cloud_enum \fB-k\fP keyword \fB--gcp-services\fP cloud-functions \fB--gcp-regions\fP us-central1,us-east1
+.PP
+cloud_enum \fB-k\fP keyword \fB--aws-services\fP s3 \fB--aws-access-key\fP AKIA... \fB--aws-secret-key\fP secret...
 .SH AUTHOR
 Written by initstring <initstring@protonmail.com>
 .PP

@@ -49,6 +49,43 @@ This fork is actively maintained by **rs0n** as part of [The Ars0n Framework v2]
 
 *This enhanced version maintains full backward compatibility while providing powerful new capabilities for modern cloud reconnaissance.*
 
+### 🔥 S3 Bucket Enumeration Enhancements
+
+This fork includes significant improvements to S3 bucket detection and enumeration:
+
+**🎯 Hybrid Enumeration Approach:**
+- **Authenticated Mode**: When AWS credentials are available (via `aws configure`, environment variables, or `--aws-access-key`/`--aws-secret-key`), uses boto3 APIs for reliable bucket detection and content listing
+- **HTTP Fallback Mode**: When no credentials are available, falls back to HTTP-based enumeration with intelligent redirect handling
+
+**🚫 Eliminates False Positives:**
+- **Proper 301 Redirect Handling**: No longer treats HTTP 301 redirects as "open buckets"
+- **XML Response Parsing**: Extracts correct regional endpoints from S3 error responses
+- **Follow-up Verification**: Tests redirect endpoints separately to determine true accessibility (200 = Open, 403 = Protected)
+
+**📊 Enhanced Logging & Results:**
+- **Redirect Tracking**: Logs 301 responses with `"access": "redirect"` and shows redirect paths (`source -> destination`)
+- **Duplicate Elimination**: Collects unique redirect endpoints and tests them once, eliminating multiple duplicate results
+- **Comprehensive Access Classification**: `public` (open), `protected` (exists but private), `redirect` (301 response), `investigate` (other status codes)
+
+**⚡ Intelligent Optimizations:**
+- **Rate Limiting Detection**: Proactively checks for AWS rate limiting before enumeration to avoid false negatives
+- **Bucket Name Validation**: Filters invalid bucket names (dots, underscores, etc.) to prevent connection errors
+- **Regional Endpoint Testing**: Tests multiple S3 endpoint formats across regions for comprehensive coverage
+
+**📝 Verbose Mode Insights:**
+```bash
+# See detailed S3 enumeration process
+./cloud_enum.py -k company --aws-services s3 -v
+
+# Output includes:
+# - Credential detection status (boto3 vs HTTP method)
+# - Rate limiting checks
+# - Bucket name validation results  
+# - Regional endpoint testing
+# - 301 redirect resolution process
+# - Final accessibility determination
+```
+
 ## Overview
 
 Multi-cloud OSINT tool. Enumerate public resources in AWS, Azure, and Google Cloud.
@@ -56,7 +93,7 @@ Multi-cloud OSINT tool. Enumerate public resources in AWS, Azure, and Google Clo
 Currently enumerates the following:
 
 **Amazon Web Services** (39+ services):
-- Open / Protected S3 Buckets
+- **S3 Buckets with Advanced Detection**: Hybrid enumeration using both authenticated boto3 APIs and HTTP fallback. Proper 301 redirect handling eliminates false positives and provides accurate bucket accessibility classification.
 - AWS Apps (WorkMail, WorkDocs, Connect, etc.)
 - RDS, DynamoDB, CloudWatch
 - Lambda, SQS, SNS, IAM
@@ -127,6 +164,22 @@ For detailed output showing enumeration methodology and FQDN formats, use the ve
 
 ### Advanced Usage
 
+**AWS Credentials Support**: For enhanced S3 enumeration with authenticated access:
+
+```sh
+# Use AWS credentials from environment or ~/.aws/credentials (via 'aws configure')
+./cloud_enum.py -k keyword --aws-services s3
+
+# Or provide credentials directly
+./cloud_enum.py -k keyword --aws-services s3 --aws-access-key AKIA... --aws-secret-key secret...
+
+# With credentials, you get:
+# - Reliable bucket detection using AWS APIs
+# - Actual bucket content listings (when accessible)
+# - Accurate region detection for each bucket
+# - No rate limiting issues compared to HTTP methods
+```
+
 **Service Selection**: You can target specific cloud services instead of running all checks:
 
 ```sh
@@ -184,9 +237,10 @@ For detailed output showing enumeration methodology and FQDN formats, use the ve
 ```
 usage: cloud_enum.py [-h] -k KEYWORD [-m MUTATIONS] [-b BRUTE] [-t THREADS] [-ns NAMESERVER] 
                      [-nsf NAMESERVERFILE] [-l LOGFILE] [-f FORMAT] [--disable-aws] [--disable-azure] 
-                     [--disable-gcp] [-qs] [-v] [--aws-regions AWS_REGIONS] [--azure-regions AZURE_REGIONS] 
-                     [--gcp-regions GCP_REGIONS] [--aws-services AWS_SERVICES] [--azure-services AZURE_SERVICES] 
-                     [--gcp-services GCP_SERVICES] [--show-regions] [--show-services]
+                     [--disable-gcp] [-qs] [-v] [--aws-access-key AWS_ACCESS_KEY] [--aws-secret-key AWS_SECRET_KEY]
+                     [--aws-regions AWS_REGIONS] [--azure-regions AZURE_REGIONS] [--gcp-regions GCP_REGIONS] 
+                     [--aws-services AWS_SERVICES] [--azure-services AZURE_SERVICES] [--gcp-services GCP_SERVICES] 
+                     [--show-regions] [--show-services]
 
 Multi-cloud enumeration utility. All hail OSINT!
 
@@ -215,6 +269,10 @@ optional arguments:
   --disable-gcp         Disable Google checks.
   -qs, --quickscan      Disable all mutations and second-level scans
   -v, --verbose         Show detailed enumeration process including FQDN formats and HTTP response meanings
+  --aws-access-key AWS_ACCESS_KEY
+                        AWS access key ID for authenticated S3 enumeration
+  --aws-secret-key AWS_SECRET_KEY
+                        AWS secret access key for authenticated S3 enumeration
   --aws-regions AWS_REGIONS
                         Comma-separated list of AWS regions to check
   --azure-regions AZURE_REGIONS

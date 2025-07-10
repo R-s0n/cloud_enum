@@ -128,6 +128,12 @@ def parse_arguments():
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Enable verbose output showing detailed enumeration process')
 
+    # AWS credential arguments
+    parser.add_argument('--aws-access-key', type=str, action='store',
+                        help='AWS access key ID for authenticated requests')
+    parser.add_argument('--aws-secret-key', type=str, action='store',
+                        help='AWS secret access key for authenticated requests')
+
     # Region control arguments
     parser.add_argument('--aws-regions', type=str, action='store',
                         help='Comma-separated list of AWS regions to check')
