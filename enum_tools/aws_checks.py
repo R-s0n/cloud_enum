@@ -147,6 +147,8 @@ def print_s3_response(reply):
     This function is passed into the class object so we can view results
     in real-time.
     """
+    from urllib.parse import urlparse
+    
     data = {'platform': 'aws', 'msg': '', 'target': '', 'access': ''}
 
     if reply.status_code == 404:
@@ -155,13 +157,13 @@ def print_s3_response(reply):
         pass
     elif reply.status_code == 200:
         data['msg'] = 'OPEN S3 BUCKET'
-        data['target'] = reply.url
+        data['target'] = urlparse(reply.url).netloc
         data['access'] = 'public'
         utils.fmt_output(data)
         utils.list_bucket_contents(reply.url)
     elif reply.status_code == 403:
         data['msg'] = 'Protected S3 Bucket'
-        data['target'] = reply.url
+        data['target'] = urlparse(reply.url).netloc
         data['access'] = 'protected'
         utils.fmt_output(data)
     elif 'Slow Down' in reply.reason:
@@ -181,9 +183,9 @@ def check_s3_buckets(names, threads, verbose=False):
     print("[+] Checking for S3 buckets")
     
     if verbose:
-        print(f"[*] S3 buckets use format: bucketname.{S3_URL}")
-        print(f"[*] Real example: company-backups.{S3_URL}")
-        print(f"[*] Testing {len(names)} mutations via HTTP GET requests")
+        print(f"[*] S3 buckets use format: bucketname.{S3_URL}/index.html")
+        print(f"[*] Real example: company-backups.{S3_URL}/index.html")
+        print(f"[*] Testing {len(names)} mutations via HTTPS GET requests")
         print(f"[*] 200 = Open bucket, 403 = Protected bucket, 404 = Not found")
 
     # Start a counter to report on elapsed time
@@ -193,11 +195,12 @@ def check_s3_buckets(names, threads, verbose=False):
     candidates = []
 
     # Take each mutated keyword craft a url with the correct format
+    # Using /index.html path to get proper bucket existence detection
     for name in names:
-        candidates.append(f'{name}.{S3_URL}')
+        candidates.append(f'{name}.{S3_URL}/index.html')
 
     # Send the valid names to the batch HTTP processor
-    utils.get_url_batch(candidates, use_ssl=False,
+    utils.get_url_batch(candidates, use_ssl=True,
                         callback=print_s3_response,
                         threads=threads, verbose=verbose)
 
